@@ -13,7 +13,6 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, toRef } from 'vue'
 import $ from 'jquery'
-import _ from 'lodash'
 
 export default defineComponent({
   setup() {
@@ -42,8 +41,6 @@ export default defineComponent({
         aboutStyle.value = {}
       }, 1000)
     }
-
-    $(window).on('scroll', )
 
     return {
       toBlog,
