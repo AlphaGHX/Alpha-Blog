@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRef } from 'vue'
+import { defineComponent, onMounted, ref, toRef, reactive } from 'vue'
 import $ from 'jquery'
 
 export default defineComponent({
@@ -19,32 +19,120 @@ export default defineComponent({
     var blogStyle = ref({})
     var toolsStyle = ref({})
     var aboutStyle = ref({})
+    var nowScroll = 0
+    var nowStat = 0
+    var nowMain = 0
 
-    const toBlog = function() {
-      blogStyle.value = { width: '100vw', height: '100vh' }
-      toolsStyle.value = { width: '0' }
-      aboutStyle.value = { width: '0' }
-      setTimeout(function() {
+    var reqMainStat = { width: '100vw', height: '100vh' }
+    var reqStat = { width: '0' }
+    var resMainStat = { width: '100vw', height: '1vh' }
+    var resStat = { width: '0', height: '1vh' }
+
+    // 设置顶栏状态
+    const statSet = function(main: number, stat: number) {
+      if (stat === 0) {
+        nowStat = 0
         blogStyle.value = {}
         toolsStyle.value = {}
         aboutStyle.value = {}
+      } else if (stat === 1) {
+        nowStat = 1
+        if (main === 0) {
+          blogStyle.value = reqMainStat
+          toolsStyle.value = reqStat
+          aboutStyle.value = reqStat
+        } else if (main === 1) {
+          blogStyle.value = reqStat
+          toolsStyle.value = reqMainStat
+          aboutStyle.value = reqStat
+        } else {
+          blogStyle.value = reqStat
+          toolsStyle.value = reqStat
+          aboutStyle.value = reqMainStat
+        }
+      } else {
+        nowStat = 2
+        if (main === 0) {
+          blogStyle.value = resMainStat
+          toolsStyle.value = resStat
+          aboutStyle.value = resStat
+        } else if (main === 1) {
+          blogStyle.value = resStat
+          toolsStyle.value = resMainStat
+          aboutStyle.value = resStat
+        } else {
+          blogStyle.value = resStat
+          toolsStyle.value = resStat
+          aboutStyle.value = resMainStat
+        }
+      }
+    }
+
+    // 节流
+    const throttle = function throttle(fn: () => void, delay: number) {
+      let valid = true
+      return function() {
+        if (!valid) {
+          return false
+        }
+        valid = false
+        setTimeout(() => {
+          fn()
+          valid = true
+        }, delay)
+      }
+    }
+
+    onMounted(function() {
+      $(window).on('scroll', throttle(getScrollTop, 100))
+      nowStat = 0
+      nowMain = 0
+      nowScroll = $(window).scrollTop() as number
+    })
+
+    const getScrollTop = function() {
+      const cScroll = $(window).scrollTop() as number
+      if (nowStat === 1) {
+        return
+      }
+      if (cScroll > nowScroll) {
+        nowScroll = cScroll
+        statSet(nowMain, 2)
+      }
+      if (cScroll < nowScroll) {
+        nowScroll = cScroll
+        statSet(nowMain, 0)
+      }
+    }
+
+    const toBlog = function() {
+      nowMain = 0
+      statSet(nowMain, 1)
+      setTimeout(function() {
+        statSet(nowMain, 2)
       }, 1000)
     }
 
     const toTools = function() {
-      toolsStyle.value = { width: '100vw', height: '100vh' }
-      blogStyle.value = { width: '0' }
-      aboutStyle.value = { width: '0' }
+      nowMain = 1
+      statSet(nowMain, 1)
       setTimeout(function() {
-        blogStyle.value = {}
-        toolsStyle.value = {}
-        aboutStyle.value = {}
+        statSet(nowMain, 2)
+      }, 1000)
+    }
+
+    const toAbout = function() {
+      nowMain = 2
+      statSet(nowMain, 1)
+      setTimeout(function() {
+        statSet(nowMain, 2)
       }, 1000)
     }
 
     return {
       toBlog,
       toTools,
+      toAbout,
       blogStyle,
       toolsStyle,
       aboutStyle
@@ -60,12 +148,12 @@ export default defineComponent({
 }
 @mixin topBtn($bgc1, $bgc2, $sc) {
   width: 100%;
-  height: 20vh;
+  height: 10vh;
   background-image: linear-gradient(180deg, $bgc1, $bgc2);
   box-shadow: $sc;
-  transition-duration: 0.5s;
+  transition: 0.5s cubic-bezier(0.4, 0, 0, 1);
   &:hover {
-    height: 25vh;
+    height: 12vh;
   }
 }
 .nav {
