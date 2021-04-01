@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="237px" height="228px" viewBox="0 0 237 228" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>星形</title>
+    <defs>
+        <linearGradient x1="50%" y1="0.336333588%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFF5F9" offset="0%"></stop>
+            <stop stop-color="#FFEAF2" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-2" points="102.5 153.75 42.2520129 185.424243 53.7583554 118.337119 5.01670691 70.8257575 72.3760085 61.0378808 102.5 0 132.623991 61.0378808 199.983289 70.8257575 151.241641 118.337119 162.747983 185.424243"></polygon>
+        <filter x="-15.3%" y="-16.8%" width="130.5%" height="125.7%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 0.887762005   0 0 0 0 0.927668847  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="星形" transform="translate(16.000000, 19.000000)">
+            <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+            <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+        </g>
+    </g>
+</svg>

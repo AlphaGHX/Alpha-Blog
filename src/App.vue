@@ -1,9 +1,18 @@
 <template>
   <div class="nav">
     <div class="top">
-      <div class="blog" :style="blogStyle" @click="toBlog"></div>
-      <div class="tools" :style="toolsStyle" @click="toTools"></div>
-      <div class="about" :style="aboutStyle" @click="toAbout"></div>
+      <div class="blog" :style="blogStyle" @click="toBlog">
+        <img src="./assets/homeStar.png" alt="PNG" />
+        <div :style="topTextOp">BLOG</div>
+      </div>
+      <div class="tools" :style="toolsStyle" @click="toTools">
+        <img src="./assets/homeTriangle.png" alt="PNG" />
+        <div :style="topTextOp">TOOLS</div>
+      </div>
+      <div class="about" :style="aboutStyle" @click="toAbout">
+        <img src="./assets/homePentagon.png" alt="PNG" />
+        <div :style="topTextOp">ABOUT</div>
+      </div>
     </div>
     <div style="height: 200vh;"></div>
   </div>
@@ -19,6 +28,7 @@ export default defineComponent({
     var blogStyle = ref({})
     var toolsStyle = ref({})
     var aboutStyle = ref({})
+    var topTextOp = ref({})
     var nowScroll = 0
     var nowStat = 0
     var nowMain = 0
@@ -32,11 +42,15 @@ export default defineComponent({
     const statSet = function(main: number, stat: number) {
       if (stat === 0) {
         nowStat = 0
+        topTextOp.value = {}
         blogStyle.value = {}
         toolsStyle.value = {}
         aboutStyle.value = {}
       } else if (stat === 1) {
         nowStat = 1
+        topTextOp.value = {
+          'font-size': '50px'
+        }
         if (main === 0) {
           blogStyle.value = reqMainStat
           toolsStyle.value = reqStat
@@ -52,6 +66,9 @@ export default defineComponent({
         }
       } else {
         nowStat = 2
+        topTextOp.value = {
+          opacity: '0'
+        }
         if (main === 0) {
           blogStyle.value = resMainStat
           toolsStyle.value = resStat
@@ -69,7 +86,7 @@ export default defineComponent({
     }
 
     // 节流
-    const throttle = function throttle(fn: () => void, delay: number) {
+    const throttle = function(fn: () => void, delay: number) {
       let valid = true
       return function() {
         if (!valid) {
@@ -135,7 +152,8 @@ export default defineComponent({
       toAbout,
       blogStyle,
       toolsStyle,
-      aboutStyle
+      aboutStyle,
+      topTextOp
     }
   }
 })
@@ -147,13 +165,32 @@ export default defineComponent({
   padding: 0px;
 }
 @mixin topBtn($bgc1, $bgc2, $sc) {
+  font-family: system-ui;
   width: 100%;
   height: 10vh;
   background-image: linear-gradient(180deg, $bgc1, $bgc2);
   box-shadow: $sc;
   transition: 0.5s cubic-bezier(0.4, 0, 0, 1);
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
   &:hover {
     height: 12vh;
+  }
+  img {
+    position: absolute;
+    right: -60px;
+    bottom: -50px;
+    height: 12vh;
+  }
+  div {
+    position: absolute;
+    font-weight: bold;
+    font-size: 30px;
+    top: 50%;
+    left: 10%;
+    transform: translate(0, -50%);
+    transition: 0.5s cubic-bezier(0.4, 0, 0, 1);
   }
 }
 .nav {
@@ -163,12 +200,15 @@ export default defineComponent({
     width: 100%;
     .blog {
       @include topBtn(#fff5f9 0%, #ffeaf2 70%, 0 2px 20px 2px #ffe2ed);
+      color: #ffadcc;
     }
     .tools {
       @include topBtn(#ebf7ff 0%, #d1edff 70%, 0 2px 20px 2px #c9e9ff);
+      color: #98d7ff;
     }
     .about {
       @include topBtn(#f8eeff 0%, #f1dbff 70%, 0 2px 20px 2px #edd2ff);
+      color: #ddacfc;
     }
   }
 }
