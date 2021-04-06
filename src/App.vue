@@ -14,6 +14,7 @@
         <div :style="topTextOp">ABOUT</div>
       </div>
     </div>
+    <div style="height: 14vh"></div>
   </div>
   <router-view />
 </template>
@@ -55,9 +56,6 @@ export default defineComponent({
         aboutStyle.value = {}
       } else if (stat === 1) {
         nowStat = 1
-        topTextOp.value = {
-          'font-size': '6vh'
-        }
         if (main === 0) {
           blogStyle.value = reqMainStat
           toolsStyle.value = reqStat
@@ -124,8 +122,13 @@ export default defineComponent({
       nowMain = 0
       statSet(nowMain, 1)
       setTimeout(function() {
-        router.push({ name: 'Blog' })
-        statSet(nowMain, 2)
+        router.push({ name: 'Blog' }).then(function() {
+          if (nowScroll === 0) {
+            statSet(nowMain, 0)
+          } else {
+            statSet(nowMain, 2)
+          }
+        })
       }, 500)
     }
 
@@ -133,17 +136,28 @@ export default defineComponent({
       nowMain = 1
       statSet(nowMain, 1)
       setTimeout(function() {
-        router.push({ name: 'Tools' })
-        statSet(nowMain, 2)
-      }, 1000)
+        router.push({ name: 'Tools' }).then(function() {
+          if (nowScroll === 0) {
+            statSet(nowMain, 0)
+          } else {
+            statSet(nowMain, 2)
+          }
+        })
+      }, 500)
     }
 
     const toAbout = function() {
       nowMain = 2
       statSet(nowMain, 1)
       setTimeout(function() {
-        statSet(nowMain, 2)
-      }, 1000)
+        router.push({ name: 'About' }).then(function() {
+          if (nowScroll === 0) {
+            statSet(nowMain, 0)
+          } else {
+            statSet(nowMain, 2)
+          }
+        })
+      }, 500)
     }
 
     return {
@@ -161,11 +175,11 @@ export default defineComponent({
 
 <style lang="scss">
 * {
+  font-family: system-ui;
   margin: 0px;
   padding: 0px;
 }
 @mixin topBtn($bgc1, $bgc2, $sc) {
-  font-family: system-ui;
   width: 100%;
   height: 10vh;
   background-image: linear-gradient(180deg, $bgc1, $bgc2);
@@ -174,8 +188,9 @@ export default defineComponent({
   position: relative;
   overflow: hidden;
   opacity: 1;
+  // backdrop-filter: saturate(180%) blur(20px);
   &:hover {
-    height: 12vh;
+    width: 105%;
   }
   img {
     position: absolute;
@@ -190,7 +205,7 @@ export default defineComponent({
     top: 50%;
     left: 10%;
     transform: translate(0, -50%);
-    transition: 0.5s cubic-bezier(0.4, 0, 0, 1);
+    transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
   }
 }
 .nav {
