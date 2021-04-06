@@ -14,13 +14,13 @@
         <div :style="topTextOp">ABOUT</div>
       </div>
     </div>
-    <div style="height: 200vh;"></div>
   </div>
   <router-view />
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, toRef, reactive } from 'vue'
+import router from './router'
 import $ from 'jquery'
 
 export default defineComponent({
@@ -38,6 +38,13 @@ export default defineComponent({
     var resMainStat = { width: '100vw', height: '1vh' }
     var resStat = { width: '0', height: '1vh' }
 
+    onMounted(function() {
+      $(window).on('scroll', throttle(getScrollTop, 100))
+      nowStat = 0
+      nowMain = 0
+      nowScroll = $(window).scrollTop() as number
+    })
+
     // 设置顶栏状态
     const statSet = function(main: number, stat: number) {
       if (stat === 0) {
@@ -49,7 +56,7 @@ export default defineComponent({
       } else if (stat === 1) {
         nowStat = 1
         topTextOp.value = {
-          'font-size': '50px'
+          'font-size': '6vh'
         }
         if (main === 0) {
           blogStyle.value = reqMainStat
@@ -100,23 +107,14 @@ export default defineComponent({
       }
     }
 
-    onMounted(function() {
-      $(window).on('scroll', throttle(getScrollTop, 100))
-      nowStat = 0
-      nowMain = 0
-      nowScroll = $(window).scrollTop() as number
-    })
-
+    // 监控滚动
     const getScrollTop = function() {
       const cScroll = $(window).scrollTop() as number
-      if (nowStat === 1) {
-        return
-      }
-      if (cScroll > nowScroll) {
+      if (nowStat === 1 || cScroll < 0) {
+      } else if (cScroll > nowScroll) {
         nowScroll = cScroll
         statSet(nowMain, 2)
-      }
-      if (cScroll < nowScroll) {
+      } else if (cScroll < nowScroll) {
         nowScroll = cScroll
         statSet(nowMain, 0)
       }
@@ -126,14 +124,16 @@ export default defineComponent({
       nowMain = 0
       statSet(nowMain, 1)
       setTimeout(function() {
+        router.push({ name: 'Blog' })
         statSet(nowMain, 2)
-      }, 1000)
+      }, 500)
     }
 
     const toTools = function() {
       nowMain = 1
       statSet(nowMain, 1)
       setTimeout(function() {
+        router.push({ name: 'Tools' })
         statSet(nowMain, 2)
       }, 1000)
     }
@@ -170,7 +170,7 @@ export default defineComponent({
   height: 10vh;
   background-image: linear-gradient(180deg, $bgc1, $bgc2);
   box-shadow: $sc;
-  transition: 0.5s cubic-bezier(0.4, 0, 0, 1);
+  transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
   position: relative;
   overflow: hidden;
   opacity: 1;
@@ -181,12 +181,12 @@ export default defineComponent({
     position: absolute;
     right: -60px;
     bottom: -50px;
-    height: 12vh;
+    height: 130px;
   }
   div {
     position: absolute;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 4vh;
     top: 50%;
     left: 10%;
     transform: translate(0, -50%);
@@ -198,6 +198,7 @@ export default defineComponent({
     position: fixed;
     display: flex;
     width: 100%;
+    cursor: pointer;
     .blog {
       @include topBtn(#fff5f9 0%, #ffeaf2 70%, 0 2px 20px 2px #ffe2ed);
       color: #ffadcc;
