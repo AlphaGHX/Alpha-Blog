@@ -14,13 +14,13 @@
         <div :style="topTextOp">ABOUT</div>
       </div>
     </div>
-    <div style="height: 14vh"></div>
+    <div style="height: 12vh"></div>
   </div>
   <router-view />
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRef, reactive } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import router from './router'
 import $ from 'jquery'
 
@@ -123,11 +123,7 @@ export default defineComponent({
       statSet(nowMain, 1)
       setTimeout(function() {
         router.push({ name: 'Blog' }).then(function() {
-          if (nowScroll === 0) {
-            statSet(nowMain, 0)
-          } else {
-            statSet(nowMain, 2)
-          }
+          statSet(nowMain, 0)
         })
       }, 500)
     }
@@ -137,11 +133,7 @@ export default defineComponent({
       statSet(nowMain, 1)
       setTimeout(function() {
         router.push({ name: 'Tools' }).then(function() {
-          if (nowScroll === 0) {
-            statSet(nowMain, 0)
-          } else {
-            statSet(nowMain, 2)
-          }
+          statSet(nowMain, 0)
         })
       }, 500)
     }
@@ -151,11 +143,7 @@ export default defineComponent({
       statSet(nowMain, 1)
       setTimeout(function() {
         router.push({ name: 'About' }).then(function() {
-          if (nowScroll === 0) {
-            statSet(nowMain, 0)
-          } else {
-            statSet(nowMain, 2)
-          }
+          statSet(nowMain, 0)
         })
       }, 500)
     }
