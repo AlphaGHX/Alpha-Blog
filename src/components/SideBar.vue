@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="side-bar-main">
     <div class="box">
       <div class="topImg"><img :src="topImgSrc" alt="topImg" /></div>
       <div class="name">{{ name }}</div>
@@ -17,14 +17,14 @@
           <div class="content-item" @click="itemClick(index)">
             <svg-icon :name="item.icon"></svg-icon>
             <div class="content-item-title">{{ item.title }}</div>
-            <svg-icon :style="item.hideStyleNext" name="下一个"></svg-icon>
+            <svg-icon :class="{ 'svg-active': item.isActive }" name="下一个"></svg-icon>
           </div>
           <template v-if="item.hasHide">
             <div
               class="content-hideItem"
+              :class="{ 'content-hideItem-active': item.isActive }"
               v-for="(itemH, indexH) of item.hideItem"
               :key="indexH"
-              :style="item.hideStyle"
               @click="hideItemClick(index, indexH)"
             >
               <svg-icon name="star"></svg-icon>
@@ -38,124 +38,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRef, toRefs } from 'vue'
-
-export interface SideBarData {
-  contacts: string[]
-  contents: {
-    title: string
-    icon: string
-    hasHide: boolean
-    hideStyle: {
-      height: string
-      opacity: number
-    }
-    hideStyleNext: {
-      transform: string
-    }
-    hideItem?: {
-      title: string
-    }[]
-  }[]
-}
+import { defineComponent, reactive, toRef } from 'vue'
+import { SideBarData } from '@/hooks/Types'
 
 export default defineComponent({
   name: 'SideBar',
-  setup() {
-    var topImgSrc = 'https://via.placeholder.com/70x70'
-    var name = 'Alpha'
+  props: {
+    data: Object
+  },
+  setup(props) {
+    const sideBarData: SideBarData = props.data as SideBarData
+    const sideBarDataReactive = reactive(sideBarData)
 
-    var sideBarData: SideBarData = reactive({
-      contacts: ['github', 'telegram', 'twitter'],
-      contents: [
-        {
-          title: '文章',
-          icon: '文章',
-          hasHide: true,
-          hideStyle: {
-            height: '0px',
-            opacity: 0
-          },
-          hideStyleNext: {
-            transform: 'rotate(0deg)'
-          },
-          hideItem: [{ title: '博客' }, { title: '关于' }]
-        },
-        {
-          title: '归档',
-          icon: '归档',
-          hasHide: true,
-          hideStyle: {
-            height: '0px',
-            opacity: 0
-          },
-          hideStyleNext: {
-            transform: 'rotate(0deg)'
-          },
-          hideItem: [
-            {
-              title: '2021'
-            },
-            {
-              title: '2020'
-            },
-            {
-              title: '2019'
-            },
-            {
-              title: '2018'
-            },
-            {
-              title: '2017'
-            },
-            {
-              title: '2016'
-            }
-          ]
-        },
-        {
-          title: '分类',
-          icon: '分类',
-          hasHide: true,
-          hideStyle: {
-            height: '0px',
-            opacity: 0
-          },
-          hideStyleNext: {
-            transform: 'rotate(0deg)'
-          },
-          hideItem: [
-            {
-              title: '前端'
-            },
-            {
-              title: '后端'
-            },
-            {
-              title: '算法'
-            }
-          ]
-        }
-      ]
-    })
-
-    var contents = toRef(sideBarData, 'contents')
-    var contacts = toRef(sideBarData, 'contacts')
+    const topImgSrc = toRef(sideBarDataReactive, 'topImgSrc')
+    const name = toRef(sideBarDataReactive, 'name')
+    const contents = toRef(sideBarDataReactive, 'contents')
+    const contacts = toRef(sideBarDataReactive, 'contacts')
 
     const itemClick = function(x: number) {
-      if (contents.value[x].hideStyle.opacity === 0) {
-        contents.value[x].hideStyle = {
-          height: '40px',
-          opacity: 1
-        }
-        contents.value[x].hideStyleNext = { transform: 'rotate(90deg)' }
-      } else {
-        contents.value[x].hideStyle = {
-          height: '0px',
-          opacity: 0
-        }
-        contents.value[x].hideStyleNext = { transform: 'rotate(0deg)' }
-      }
+      contents.value[x].isActive = !contents.value[x].isActive
     }
 
     const hideItemClick = function(x: number, y: number) {
@@ -184,9 +85,8 @@ $TextColot: #ce8ca6;
     background-color: #ffe5f0;
   }
 }
-.main {
+.side-bar-main {
   .box {
-    margin-top: 50px;
     padding-left: 40px;
     padding-right: 40px;
     background: linear-gradient(180deg, #fff5f9cc, #ffeaf2cc);
@@ -200,7 +100,7 @@ $TextColot: #ce8ca6;
     .name {
       margin-top: -20px;
       color: $mainTextColor;
-      font-size: 30px;
+      font-size: 40px;
     }
     .contact {
       padding-top: 10px;
@@ -212,16 +112,15 @@ $TextColot: #ce8ca6;
         line-height: 50px;
         @include btn();
       }
-      // img {
-      //   height: 20px;
-      // }
       svg {
         height: 20px;
       }
     }
     .content {
       padding: 20px 0;
-      .content-item {
+      .content-item,
+      .content-hideItem,
+      .content-hideItem-active {
         height: 40px;
         display: flex;
         justify-content: space-between;
@@ -229,8 +128,9 @@ $TextColot: #ce8ca6;
         line-height: 40px;
         color: $TextColot;
         @include btn();
-        .content-item-title {
-          font-size: 15px;
+        .content-item-title,
+        .content-hideItem-title {
+          font-size: 20px;
           font-weight: bold;
           width: 100%;
           margin-left: 10px;
@@ -238,30 +138,22 @@ $TextColot: #ce8ca6;
         svg {
           height: 20px;
           width: 20%;
+          transform: rotate(0deg);
           transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
+        }
+        .svg-active {
+          transform: rotate(90deg);
         }
       }
       .content-hideItem {
         padding-left: 5%;
-        height: 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        line-height: 40px;
-        color: $TextColot;
-        opacity: 1;
         overflow: hidden;
-        @include btn();
-        .content-hideItem-title {
-          font-size: 15px;
-          font-weight: bold;
-          width: 100%;
-          margin-left: 10px;
-        }
-        svg {
-          width: 20%;
-          height: 20px;
-        }
+        height: 0px;
+        opacity: 0;
+      }
+      .content-hideItem-active {
+        height: 40px;
+        opacity: 1;
       }
     }
   }

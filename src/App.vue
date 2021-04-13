@@ -14,7 +14,6 @@
         <div :style="topTextOp">ABOUT</div>
       </div>
     </div>
-    <div style="height: 12vh"></div>
   </div>
   <router-view />
 </template>

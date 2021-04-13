@@ -1,102 +1,59 @@
 <template>
   <div class="main">
-    <side-bar class="sideBar" />
+    <div class="box">
+      <div class="main-left">
+        <side-bar class="side-bar" :data="sideBarData" />
+      </div>
+
+      <div class="main-right">
+        <blog-item class="blog-item" :data="blogItemData" />
+        <blog-item class="blog-item" :data="blogItemData" />
+        <blog-item class="blog-item" :data="blogItemData" />
+        <blog-item class="blog-item" :data="blogItemData" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import SideBar, { SideBarData } from '../components/SideBar.vue'
+import SideBar from '../components/SideBar.vue'
+import BlogItem from '@/components/BlogItem.vue'
+import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
 
 export default defineComponent({
   name: 'Blog',
   setup() {
-    var getData: SideBarData = {
-      contacts: ['github', 'telegram', 'twitter'],
-      contents: [
-        {
-          title: '文章',
-          icon: '文章',
-          hasHide: true,
-          hideStyle: {
-            height: '0px',
-            opacity: 0
-          },
-          hideStyleNext: {
-            transform: 'rotate(0deg)'
-          },
-          hideItem: [{ title: '博客' }, { title: '关于' }]
-        },
-        {
-          title: '归档',
-          icon: '归档',
-          hasHide: true,
-          hideStyle: {
-            height: '0px',
-            opacity: 0
-          },
-          hideStyleNext: {
-            transform: 'rotate(0deg)'
-          },
-          hideItem: [
-            {
-              title: '2021'
-            },
-            {
-              title: '2020'
-            },
-            {
-              title: '2019'
-            },
-            {
-              title: '2018'
-            },
-            {
-              title: '2017'
-            },
-            {
-              title: '2016'
-            }
-          ]
-        },
-        {
-          title: '分类',
-          icon: '分类',
-          hasHide: true,
-          hideStyle: {
-            height: '0px',
-            opacity: 0
-          },
-          hideStyleNext: {
-            transform: 'rotate(0deg)'
-          },
-          hideItem: [
-            {
-              title: '前端'
-            },
-            {
-              title: '后端'
-            },
-            {
-              title: '算法'
-            }
-          ]
-        }
-      ]
-    }
-
     return {
-      getData
+      sideBarData,
+      blogItemData
     }
   },
   components: {
+    BlogItem,
     SideBar
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.sideBar {
-  width: 300px;
+.main {
+  padding-top: 16vh;
+  .box {
+    margin: 0 auto;
+    width: 1500px;
+    display: flex;
+    justify-content: space-between;
+    .main-left {
+      .side-bar {
+        width: 300px;
+      }
+    }
+    .main-right {
+      .blog-item {
+        width: 1100px;
+      }
+    }
+  }
 }
 </style>
