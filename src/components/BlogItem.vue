@@ -45,8 +45,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$mainTextColor: #d5769c;
-$TextColor: #ce8ca6;
 @mixin btn() {
   transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
   cursor: pointer;
@@ -58,40 +56,40 @@ $TextColor: #ce8ca6;
   .box {
     margin-bottom: 50px;
     display: flex;
-    height: 300px;
+    height: px2em(200px);
     background: linear-gradient(180deg, #fff5f9cc, #ffeaf2cc);
     box-shadow: 0px 2px 20px 2px #ffe2ed;
 
     .main-img {
-      width: 35%;
+      width: px2em(300px);
     }
     .main-content {
-      width: 65%;
+      width: px2em(700px);
       position: relative;
       .main-content-title {
-        padding: 30px;
+        padding: px2em(20px);
         color: $mainTextColor;
-        font-size: 40px;
+        font-size: px2em(30px);
         font-weight: bold;
       }
       .main-content-text {
-        padding: 0 30px;
+        padding: 0 px2em(20px);
         color: $TextColor;
-        font-size: 25px;
+        font-size: px2em(20px);
       }
       .main-content-tag {
         position: absolute;
         display: flex;
-        bottom: 30px;
-        right: 30px;
+        bottom: px2em(20px);
+        right: px2em(20px);
         color: $TextColor;
-        font-size: 20px;
+        font-size: px2em(15px);
         .main-content-tag-item {
           display: flex;
           align-items: center;
-          padding: 0 10px;
+          padding: 0 px2em(10px);
           div {
-            padding: 0 5px;
+            padding: 0 px2em(5px);
           }
         }
       }

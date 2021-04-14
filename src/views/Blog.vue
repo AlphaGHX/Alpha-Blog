@@ -10,6 +10,10 @@
         <blog-item class="blog-item" :data="blogItemData" />
         <blog-item class="blog-item" :data="blogItemData" />
         <blog-item class="blog-item" :data="blogItemData" />
+        <blog-item class="blog-item" :data="blogItemData" />
+        <blog-item class="blog-item" :data="blogItemData" />
+        <blog-item class="blog-item" :data="blogItemData" />
+        <blog-item class="blog-item" :data="blogItemData" />
       </div>
     </div>
   </div>
@@ -17,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import SideBar from '../components/SideBar.vue'
+import SideBar from '@/components/SideBar.vue'
 import BlogItem from '@/components/BlogItem.vue'
 import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
 
@@ -39,19 +43,29 @@ export default defineComponent({
 <style lang="scss" scoped>
 .main {
   padding-top: 16vh;
-  .box {
-    margin: 0 auto;
-    width: 1500px;
-    display: flex;
-    justify-content: space-between;
-    .main-left {
-      .side-bar {
-        width: 300px;
+  @media screen and (min-width: 1200px) {
+    .box {
+      margin: 0 auto;
+      width: px2em(1200px);
+      display: flex;
+      justify-content: space-between;
+      .main-left {
+        width: px2em(300px);
+      }
+      .main-right {
+        width: px2em(800px);
       }
     }
-    .main-right {
-      .blog-item {
-        width: 1100px;
+  }
+  @media screen and (max-device-width: 1200px) {
+    .box {
+      margin: 0 auto;
+      width: px2em(800px);
+      .main-left {
+        width: px2em(800px);
+      }
+      .main-right {
+        width: px2em(800px);
       }
     }
   }

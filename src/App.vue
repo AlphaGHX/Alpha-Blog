@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import top from './hooks/Home'
 
 export default defineComponent({
@@ -47,7 +47,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 * {
   font-family: system-ui;
   margin: 0px;

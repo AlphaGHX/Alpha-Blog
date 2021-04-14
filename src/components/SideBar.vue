@@ -76,8 +76,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$mainTextColor: #d5769c;
-$TextColot: #ce8ca6;
 @mixin btn() {
   transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
   cursor: pointer;
@@ -87,56 +85,56 @@ $TextColot: #ce8ca6;
 }
 .side-bar-main {
   .box {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: px2em(40px);
+    padding-right: px2em(40px);
     background: linear-gradient(180deg, #fff5f9cc, #ffeaf2cc);
     box-shadow: 0px 2px 20px 2px #ffe2ed;
     .topImg {
       transform: translate(0, -50%);
       img {
-        height: 70px;
+        height: px2em(70px);
       }
     }
     .name {
-      margin-top: -20px;
+      margin-top: px2em(-20px);
       color: $mainTextColor;
-      font-size: 40px;
+      font-size: px2em(40px);
     }
     .contact {
-      padding-top: 10px;
+      padding-top: px2em(10px);
       display: flex;
-      height: 40px;
+      height: px2em(40px);
       .contact-img {
         text-align: center;
         width: 100%;
-        line-height: 50px;
+        line-height: px2em(50px);
         @include btn();
       }
       svg {
-        height: 20px;
+        height: px2em(20px);
       }
     }
     .content {
-      padding: 20px 0;
+      padding: px2em(20px) 0;
       .content-item,
       .content-hideItem,
       .content-hideItem-active {
-        height: 40px;
+        height: px2em(40px);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        line-height: 40px;
-        color: $TextColot;
+        line-height: px2em(40px);
+        color: $TextColor;
         @include btn();
         .content-item-title,
         .content-hideItem-title {
-          font-size: 20px;
+          font-size: px2em(20px);
           font-weight: bold;
           width: 100%;
-          margin-left: 10px;
+          margin-left: px2em(10px);
         }
         svg {
-          height: 20px;
+          height: px2em(20px);
           width: 20%;
           transform: rotate(0deg);
           transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
@@ -148,11 +146,11 @@ $TextColot: #ce8ca6;
       .content-hideItem {
         padding-left: 5%;
         overflow: hidden;
-        height: 0px;
+        height: 0;
         opacity: 0;
       }
       .content-hideItem-active {
-        height: 40px;
+        height: px2em(40px);
         opacity: 1;
       }
     }
