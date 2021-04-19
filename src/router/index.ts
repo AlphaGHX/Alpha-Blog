@@ -6,8 +6,7 @@ import About from '../views/About.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Blog
+    redirect: { name: 'Blog' }
   },
   {
     path: '/blog',

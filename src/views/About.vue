@@ -1,9 +1,11 @@
 <template>
-  <h1>This is an about page</h1>
-  <h1>This is an about page</h1>
-  <h1>This is an about page</h1>
-  <h1>This is an about page</h1>
-  <h1>This is an about page</h1>
+  <div class="about-main">
+    <h1>This is an about page</h1>
+    <h1>This is an about page</h1>
+    <h1>This is an about page</h1>
+    <h1>This is an about page</h1>
+    <h1>This is an about page</h1>
+  </div>
 </template>
 
 <script lang="ts">
@@ -14,6 +16,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="sass" scoped>
-
+<style lang="scss" scoped>
+.about-main {
+  padding-top: px2em(160px);
+}
 </style>

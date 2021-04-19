@@ -46,7 +46,7 @@ export default defineComponent({
   @media screen and (min-width: 1300px) {
     .box {
       margin: 0 auto;
-      width: 80%;
+      width: px2em(1200px);
       display: flex;
       .main-left {
         width: px2em(300px);
@@ -71,12 +71,21 @@ export default defineComponent({
       }
     }
   }
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 900px) and (min-width: 400px) {
     .box {
       margin: 0 auto;
       width: 80%;
       .main-left {
         width: px2em(300px);
+        padding-bottom: px2em(50px);
+      }
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .box {
+      margin: 0 auto;
+      width: 300px;
+      .main-left {
         padding-bottom: px2em(50px);
       }
     }

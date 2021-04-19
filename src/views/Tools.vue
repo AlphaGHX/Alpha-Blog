@@ -1,5 +1,5 @@
 <template>
-  <div class="Main">
+  <div class="tools-main">
     <h1>This is an tools page</h1>
     <h1>This is an tools page</h1>
     <h1>This is an tools page</h1>
@@ -15,3 +15,9 @@ export default defineComponent({
   name: 'Tools'
 })
 </script>
+
+<style lang="scss" scoped>
+.tools-main {
+  padding-top: px2em(160px);
+}
+</style>
