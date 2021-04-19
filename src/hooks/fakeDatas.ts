@@ -59,7 +59,7 @@ export const sideBarData: SideBarData = {
 }
 
 export const blogItemData: BlogItemData = {
-  imgSrc: 'https://via.placeholder.com/350x300',
+  imgSrc: 'https://files.yande.re/sample/20961135f093b26a376f58aa578919dd/yande.re%20771763%20sample%20hanasaku_iroha%20maid%20matsumae_ohana%20oshimizu_nako%20skirt_lift%20tagme%20tsurugi_minko%20wa_maid%20wakura_yuina.jpg',
   title: '标题',
   text:
     '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',

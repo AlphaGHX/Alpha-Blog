@@ -1,2 +1,10 @@
 $mainTextColor: #d5769c;
 $TextColor: #ce8ca6;
+
+@mixin btn() {
+  transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
+  cursor: pointer;
+  &:hover {
+    background-color: #ffe5f0;
+  }
+}

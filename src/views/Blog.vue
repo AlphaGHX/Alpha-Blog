@@ -42,30 +42,42 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .main {
-  padding-top: 16vh;
-  @media screen and (min-width: 1200px) {
+  padding-top: px2em(160px);
+  @media screen and (min-width: 1300px) {
     .box {
       margin: 0 auto;
-      width: px2em(1200px);
+      width: 80%;
       display: flex;
-      justify-content: space-between;
       .main-left {
         width: px2em(300px);
+        flex-shrink: 0;
       }
       .main-right {
-        width: px2em(800px);
+        padding-left: px2em(50px);
       }
     }
   }
-  @media screen and (max-device-width: 1200px) {
+  @media screen and (max-width: 1300px) and (min-width: 900px) {
     .box {
       margin: 0 auto;
-      width: px2em(800px);
+      width: 80%;
+      display: flex;
       .main-left {
-        width: px2em(800px);
+        width: px2em(300px);
+        flex-shrink: 0;
       }
       .main-right {
-        width: px2em(800px);
+        padding-left: px2em(50px);
+      }
+    }
+  }
+  @media screen and (max-width: 900px) {
+    .box {
+      margin: 0 auto;
+      width: 80%;
+      .main-left {
+        width: px2em(300px);
+        padding-bottom: px2em(50px);
       }
     }
   }

@@ -76,13 +76,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@mixin btn() {
-  transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
-  cursor: pointer;
-  &:hover {
-    background-color: #ffe5f0;
-  }
-}
 .side-bar-main {
   .box {
     padding-left: px2em(40px);
