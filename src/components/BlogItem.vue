@@ -66,6 +66,7 @@ export default defineComponent({
       }
       .main-content {
         position: relative;
+        width: 100%;
         .main-content-title {
           padding: px2em(20px);
           color: $mainTextColor;

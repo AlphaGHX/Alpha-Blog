@@ -46,13 +46,14 @@ export default defineComponent({
   @media screen and (min-width: 1300px) {
     .box {
       margin: 0 auto;
-      width: px2em(1200px);
+      width: 80%;
       display: flex;
       .main-left {
         width: px2em(300px);
         flex-shrink: 0;
       }
       .main-right {
+        width: 100%;
         padding-left: px2em(50px);
       }
     }
