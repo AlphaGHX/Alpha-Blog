@@ -48,6 +48,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scope>
+.test {
+  height: 0;
+}
 * {
   font-family: system-ui;
   margin: 0px;

@@ -2,19 +2,14 @@
   <div class="main">
     <div class="box">
       <div class="main-left">
-        <side-bar class="side-bar" :data="sideBarData" />
+        <SideBar class="side-bar" :data="sideBarData" />
       </div>
 
       <div class="main-right">
-        <blog-item class="blog-item" :data="blogItemData" />
-        <blog-item class="blog-item" :data="blogItemData" />
-        <blog-item class="blog-item" :data="blogItemData" />
-        <blog-item class="blog-item" :data="blogItemData" />
-        <blog-item class="blog-item" :data="blogItemData" />
-        <blog-item class="blog-item" :data="blogItemData" />
-        <blog-item class="blog-item" :data="blogItemData" />
-        <blog-item class="blog-item" :data="blogItemData" />
+        <BlogItemList class="blog-item-list" :data="blogItemData" />
       </div>
+
+      <router-view />
     </div>
   </div>
 </template>
@@ -22,7 +17,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import SideBar from '@/components/SideBar.vue'
-import BlogItem from '@/components/BlogItem.vue'
+import BlogItemList from '@/components/BlogItemList.vue'
 import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
 
 export default defineComponent({
@@ -34,8 +29,8 @@ export default defineComponent({
     }
   },
   components: {
-    BlogItem,
-    SideBar
+    SideBar,
+    BlogItemList
   }
 })
 </script>
@@ -43,7 +38,22 @@ export default defineComponent({
 <style lang="scss" scoped>
 .main {
   padding-top: px2em(160px);
-  @media screen and (min-width: 1300px) {
+  @media screen and (min-width: 1625px) {
+    .box {
+      margin: 0 auto;
+      width: px2em(1300px);
+      display: flex;
+      .main-left {
+        width: px2em(300px);
+        flex-shrink: 0;
+      }
+      .main-right {
+        width: 100%;
+        padding-left: px2em(50px);
+      }
+    }
+  }
+  @media screen and (max-width: 1625px) and (min-width: 1300px) {
     .box {
       margin: 0 auto;
       width: 80%;
