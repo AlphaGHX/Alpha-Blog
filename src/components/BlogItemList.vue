@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-list-main">
+  <div>
     <template v-for="(item, index) of data" :key="index">
       <BlogItemData :data="item" />
     </template>

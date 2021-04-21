@@ -78,56 +78,56 @@ export default defineComponent({
 <style lang="scss" scoped>
 .side-bar-main {
   .box {
-    padding-left: px2em(40px);
-    padding-right: px2em(40px);
+    padding-left: 40px;
+    padding-right: 40px;
     background: linear-gradient(180deg, #fff5f9cc, #ffeaf2cc);
     box-shadow: 0px 2px 20px 2px #ffe2ed;
     .topImg {
       transform: translate(0, -50%);
       img {
-        height: px2em(70px);
+        height: 70px;
       }
     }
     .name {
-      margin-top: px2em(-20px);
+      margin-top: -20px;
       color: $mainTextColor;
-      font-size: px2em(40px);
+      font-size: 40px;
     }
     .contact {
-      padding-top: px2em(10px);
+      padding-top: 10px;
       display: flex;
-      height: px2em(40px);
+      height: 40px;
       .contact-img {
         text-align: center;
         width: 100%;
-        line-height: px2em(50px);
+        line-height: 50px;
         @include btn();
       }
       svg {
-        height: px2em(20px);
+        height: 20px;
       }
     }
     .content {
-      padding: px2em(20px) 0;
+      padding: 20px 0;
       .content-item,
       .content-hideItem,
       .content-hideItem-active {
-        height: px2em(40px);
+        height: 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        line-height: px2em(40px);
+        line-height: 40px;
         color: $TextColor;
         @include btn();
         .content-item-title,
         .content-hideItem-title {
-          font-size: px2em(20px);
+          font-size: 20px;
           font-weight: bold;
           width: 100%;
-          margin-left: px2em(10px);
+          margin-left: 10px;
         }
         svg {
-          height: px2em(20px);
+          height: 20px;
           width: 20%;
           transform: rotate(0deg);
           transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
@@ -143,7 +143,7 @@ export default defineComponent({
         opacity: 0;
       }
       .content-hideItem-active {
-        height: px2em(40px);
+        height: 40px;
         opacity: 1;
       }
     }

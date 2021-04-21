@@ -18,6 +18,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .about-main {
-  padding-top: px2em(160px);
+  padding-top: 160px;
 }
 </style>

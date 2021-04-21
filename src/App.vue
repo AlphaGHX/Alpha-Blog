@@ -58,7 +58,7 @@ export default defineComponent({
 }
 @mixin topBtn($bgc1, $bgc2, $sc) {
   width: 100%;
-  height: px2em(80px);
+  height: 80px;
   background-image: linear-gradient(180deg, $bgc1, $bgc2);
   box-shadow: $sc;
   position: relative;
@@ -66,22 +66,24 @@ export default defineComponent({
   opacity: 1;
   // backdrop-filter: saturate(180%) blur(20px);
   transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
-  &:hover {
-    img {
-      height: px2em(150px);
+  @media (any-hover: hover) {
+    &:hover {
+      img {
+        height: 150px;
+      }
     }
   }
   img {
     position: absolute;
-    right: px2em(-60px);
-    bottom: px2em(-50px);
-    height: px2em(130px);
+    right: -60px;
+    bottom: -50px;
+    height: 130px;
     transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
   }
   div {
     position: absolute;
     font-weight: bold;
-    font-size: px2em(30px);
+    font-size: 30px;
     top: 50%;
     left: 10%;
     transform: translate(0, -50%);

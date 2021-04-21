@@ -2,11 +2,18 @@
   <div class="blog-content-main">
     <div class="box">
       <div class="box-img">
-        <img :src="" alt="IMG">
+        <img :src="data.imgSrc" alt="IMG" />
       </div>
       <div class="box-title">
-        <div class="box-title-content">{{  }}</div>
-        <div class="box-title-tag"></div>
+        <div class="box-title-content">{{ data.title }}</div>
+        <div class="box-title-tag">
+          <template v-for="(item, index) of tag" :key="index">
+            <div class="box-title-tag-item">
+              <div>{{ item.tagName }}</div>
+              <svg-icon :name="item.icon"></svg-icon>
+            </div>
+          </template>
+        </div>
       </div>
       <div class="box-content">
         <h1>MD解析器</h1>
@@ -22,7 +29,8 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'BlogContent',
-  setup(props) {
+  props: {
+    data: Object
   }
 })
 </script>
@@ -31,10 +39,22 @@ export default defineComponent({
 .blog-content-main {
   .box {
     .box-img {
-
+      height: 400px;
+      & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
     .box-title {
-      
+      .box-title-content {
+        height: 200px;
+      }
+      .box-title-tag {
+        .box-title-tag-item {
+
+        }
+      }
     }
   }
 }

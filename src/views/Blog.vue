@@ -37,19 +37,19 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .main {
-  padding-top: px2em(160px);
+  padding-top: 160px;
   @media screen and (min-width: 1625px) {
     .box {
       margin: 0 auto;
-      width: px2em(1300px);
+      width: 1300px;
       display: flex;
       .main-left {
-        width: px2em(300px);
+        width: 300px;
         flex-shrink: 0;
       }
       .main-right {
         width: 100%;
-        padding-left: px2em(50px);
+        padding-left: 50px;
       }
     }
   }
@@ -59,12 +59,12 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        width: px2em(300px);
+        width: 300px;
         flex-shrink: 0;
       }
       .main-right {
         width: 100%;
-        padding-left: px2em(50px);
+        padding-left: 50px;
       }
     }
   }
@@ -74,11 +74,11 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        width: px2em(300px);
+        width: 300px;
         flex-shrink: 0;
       }
       .main-right {
-        padding-left: px2em(50px);
+        padding-left: 50px;
       }
     }
   }
@@ -87,8 +87,8 @@ export default defineComponent({
       margin: 0 auto;
       width: 80%;
       .main-left {
-        width: px2em(300px);
-        padding-bottom: px2em(50px);
+        width: 300px;
+        padding-bottom: 50px;
       }
     }
   }
@@ -97,7 +97,7 @@ export default defineComponent({
       margin: 0 auto;
       width: 300px;
       .main-left {
-        padding-bottom: px2em(50px);
+        padding-bottom: 50px;
       }
     }
   }
