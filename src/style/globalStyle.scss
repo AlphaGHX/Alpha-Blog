@@ -1,7 +1,7 @@
 $mainTextColor: #d5769c;
 $TextColor: #ce8ca6;
 
-@mixin btn() {
+@mixin btn {
   transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
   cursor: pointer;
   @media (any-hover: hover) {
@@ -9,4 +9,25 @@ $TextColor: #ce8ca6;
       background-color: #ffe5f0;
     }
   }
+}
+
+@mixin addTransition {
+  transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
+}
+
+@mixin pinkBG {
+  background: linear-gradient(180deg, #fff5f9cc, #ffeaf2cc);
+  box-shadow: 0px 2px 20px 2px #ffe2ed;
+}
+
+@mixin bgBlur {
+  backdrop-filter: saturate(180%) blur(30px);
+  background: linear-gradient(180deg, #ffeaf2aa, #fff5f9cc);
+}
+
+@mixin textOverFlow($width) {
+  width: $width;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

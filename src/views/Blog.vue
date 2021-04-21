@@ -7,6 +7,7 @@
 
       <div class="main-right">
         <BlogItemList class="blog-item-list" :data="blogItemData" />
+        <BlogContent class="blog-content" :data="getTop" />
       </div>
 
       <router-view />
@@ -18,19 +19,24 @@
 import { defineComponent } from 'vue'
 import SideBar from '@/components/SideBar.vue'
 import BlogItemList from '@/components/BlogItemList.vue'
+import BlogContent from '@/components/BlogContent.vue'
 import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
 
 export default defineComponent({
   name: 'Blog',
   setup() {
+    const getTop = blogItemData[2]
+
     return {
       sideBarData,
-      blogItemData
+      blogItemData,
+      getTop
     }
   },
   components: {
     SideBar,
-    BlogItemList
+    BlogItemList,
+    BlogContent
   }
 })
 </script>
@@ -82,7 +88,7 @@ export default defineComponent({
       }
     }
   }
-  @media screen and (max-width: 900px) and (min-width: 400px) {
+  @media screen and (max-width: 900px) and (min-width: 375px) {
     .box {
       margin: 0 auto;
       width: 80%;
@@ -92,7 +98,7 @@ export default defineComponent({
       }
     }
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 375px) {
     .box {
       margin: 0 auto;
       width: 300px;

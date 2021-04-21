@@ -80,8 +80,7 @@ export default defineComponent({
   .box {
     padding-left: 40px;
     padding-right: 40px;
-    background: linear-gradient(180deg, #fff5f9cc, #ffeaf2cc);
-    box-shadow: 0px 2px 20px 2px #ffe2ed;
+    @include pinkBG;
     .topImg {
       transform: translate(0, -50%);
       img {

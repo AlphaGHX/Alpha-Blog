@@ -52,8 +52,7 @@ export default defineComponent({
       margin-bottom: 50px;
       display: flex;
       height: 200px;
-      background: linear-gradient(180deg, #fff5f9cc, #ffeaf2cc);
-      box-shadow: 0px 2px 20px 2px #ffe2ed;
+      @include pinkBG;
       .main-img {
         height: 200px;
         width: 300px;
