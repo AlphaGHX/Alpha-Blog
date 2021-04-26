@@ -1,5 +1,11 @@
-$mainTextColor: #d5769c;
-$TextColor: #ce8ca6;
+// $mainTextColor: #d5769c;
+// $TextColor: #ce8ca6;
+$mainTextColor: #e66699;
+$TextColor: #c76f92;
+$codeBGColor: #ffe7f0;
+$linkColor: #ff0066;
+$tableBGColorA: #ffe7f0;
+$tableBGColorB: #ffddeb;
 
 @mixin btn {
   transition: 0.5s cubic-bezier(0.6, 0, 0, 1);

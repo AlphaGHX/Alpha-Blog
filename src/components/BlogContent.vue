@@ -16,9 +16,7 @@
         </div>
       </div>
       <div class="box-content">
-        <h1>MD解析器</h1>
-        <h2>TEST</h2>
-        <p>TEST</p>
+        <MarkDown />
       </div>
     </div>
   </div>
@@ -26,11 +24,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import MarkDown from '@/components/MarkDown.vue'
 
 export default defineComponent({
   name: 'BlogContent',
   props: {
     data: Object
+  },
+  components: {
+    MarkDown
   }
 })
 </script>
@@ -42,7 +44,7 @@ export default defineComponent({
       @include pinkBG;
       margin-bottom: 50px;
       .box-img {
-        height: 500px;
+        height: 400px;
         & > img {
           width: 100%;
           height: 100%;
@@ -50,8 +52,7 @@ export default defineComponent({
         }
       }
       .box-title {
-        position: relative;
-        transform: translate(0, -50%);
+        transform: translate(0, -25%);
         background-color: #fffc;
         padding-bottom: 40px;
         @include bgBlur;
@@ -68,15 +69,21 @@ export default defineComponent({
           right: 20px;
           color: $TextColor;
           font-size: 15px;
+          font-weight: bold;
           .box-title-tag-item {
+            @include btn;
+            height: 40px;
             display: flex;
             align-items: center;
-            padding: 0 5px;
+            padding: 0 10px;
             div {
-              padding: 0 2px;
+              padding: 0 5px;
             }
           }
         }
+      }
+      .box-content {
+        padding: 0 20px 20px 20px;
       }
     }
   }
@@ -93,10 +100,8 @@ export default defineComponent({
         }
       }
       .box-title {
-        position: relative;
-        transform: translate(0, -50%);
+        transform: translate(0, -25%);
         background-color: #fffc;
-        padding-bottom: 40px;
         @include bgBlur;
         .box-title-content {
           font-size: 30px;
@@ -109,7 +114,10 @@ export default defineComponent({
           display: flex;
           color: $TextColor;
           font-size: 15px;
+          font-weight: bold;
           .box-title-tag-item {
+            @include btn;
+            height: 40px;
             display: flex;
             align-items: center;
             padding: 0 5px;
@@ -118,6 +126,9 @@ export default defineComponent({
             }
           }
         }
+      }
+      .box-content {
+        padding: 0 20px 20px 20px;
       }
     }
   }

@@ -1,17 +1,6 @@
 <template>
   <div class="side-bar-main">
     <div class="box">
-      <div class="topImg"><img :src="topImgSrc" alt="topImg" /></div>
-      <div class="name">{{ name }}</div>
-      <div class="contact">
-        <div class="contact-img" v-for="(item, index) of contacts" :key="index">
-          <!-- <img
-            :src="require('../assets/svg/' + item + '.svg')"
-            alt="contactIcon"
-          /> -->
-          <svg-icon :name="item"></svg-icon>
-        </div>
-      </div>
       <div class="content">
         <template v-for="(item, index) of contents" :key="index">
           <div class="content-item" @click="itemClick(index)">
@@ -85,31 +74,6 @@ export default defineComponent({
     padding-left: 40px;
     padding-right: 40px;
     @include pinkBG;
-    .topImg {
-      transform: translate(0, -50%);
-      img {
-        height: 70px;
-      }
-    }
-    .name {
-      margin-top: -20px;
-      color: $mainTextColor;
-      font-size: 30px;
-    }
-    .contact {
-      padding-top: 10px;
-      display: flex;
-      height: 40px;
-      .contact-img {
-        text-align: center;
-        width: 100%;
-        @include btn();
-        svg {
-          height: 40px;
-          color: $TextColor;
-        }
-      }
-    }
     .content {
       padding: 20px 0;
       .content-item,

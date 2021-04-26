@@ -7,14 +7,14 @@ export const sideBarData: SideBarData = {
   contents: [
     {
       title: '文章',
-      icon: '文章',
+      icon: 'md-bookmarks',
       hasHide: true,
       isActive: false,
       hideItem: [{ title: '博客' }, { title: '关于' }]
     },
     {
       title: '归档',
-      icon: '归档',
+      icon: 'md-archive',
       hasHide: true,
       isActive: false,
       hideItem: [
@@ -40,7 +40,7 @@ export const sideBarData: SideBarData = {
     },
     {
       title: '分类',
-      icon: '分类',
+      icon: 'md-pricetags',
       hasHide: true,
       isActive: false,
       hideItem: [
@@ -68,19 +68,19 @@ export const blogItemData: BlogItemData[] = [
     tag: [
       {
         tagName: '前端',
-        icon: '分类'
+        icon: 'md-pricetags'
       },
       {
         tagName: 'Vue',
-        icon: '标签'
+        icon: 'md-pricetag'
       },
       {
         tagName: '2021',
-        icon: '归档'
+        icon: 'md-archive'
       },
       {
         tagName: '100',
-        icon: 'love it'
+        icon: 'md-heart'
       }
     ]
   },
@@ -93,19 +93,19 @@ export const blogItemData: BlogItemData[] = [
     tag: [
       {
         tagName: 'VPS',
-        icon: '分类'
+        icon: 'md-pricetags'
       },
       {
         tagName: '白嫖',
-        icon: '标签'
+        icon: 'md-pricetag'
       },
       {
         tagName: '2021',
-        icon: '归档'
+        icon: 'md-archive'
       },
       {
         tagName: '123',
-        icon: 'love it'
+        icon: 'md-heart'
       }
     ]
   },
@@ -118,19 +118,19 @@ export const blogItemData: BlogItemData[] = [
     tag: [
       {
         tagName: '其他',
-        icon: '分类'
+        icon: 'md-pricetags'
       },
       {
         tagName: '其他',
-        icon: '标签'
+        icon: 'md-pricetag'
       },
       {
         tagName: '2021',
-        icon: '归档'
+        icon: 'md-archive'
       },
       {
         tagName: '90',
-        icon: 'love it'
+        icon: 'md-heart'
       }
     ]
   }

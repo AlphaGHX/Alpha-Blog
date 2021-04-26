@@ -85,7 +85,10 @@ export default defineComponent({
           right: 20px;
           color: $TextColor;
           font-size: 15px;
+          font-weight: bold;
           .main-content-tag-item {
+            @include btn;
+            height: 40px;
             display: flex;
             align-items: center;
             padding: 0 10px;
@@ -130,7 +133,10 @@ export default defineComponent({
           display: flex;
           color: $TextColor;
           font-size: 15px;
+          font-weight: bold;
           .main-content-tag-item {
+            @include btn;
+            height: 40px;
             display: flex;
             align-items: center;
             padding: 0 5px;

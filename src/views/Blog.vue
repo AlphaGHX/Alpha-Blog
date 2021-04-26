@@ -6,8 +6,8 @@
       </div>
 
       <div class="main-right">
-        <BlogItemList class="blog-item-list" :data="blogItemData" />
         <BlogContent class="blog-content" :data="getTop" />
+        <BlogItemList class="blog-item-list" :data="blogItemData" />
       </div>
 
       <router-view />
@@ -25,7 +25,7 @@ import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
 export default defineComponent({
   name: 'Blog',
   setup() {
-    const getTop = blogItemData[2]
+    const getTop = blogItemData[0]
 
     return {
       sideBarData,
@@ -54,7 +54,7 @@ export default defineComponent({
         flex-shrink: 0;
       }
       .main-right {
-        width: 100%;
+        width: 1000px;
         padding-left: 50px;
       }
     }
@@ -65,11 +65,11 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        width: 300px;
-        flex-shrink: 0;
+        min-width: 200px;
+        max-width: 300px;
       }
       .main-right {
-        width: 100%;
+        min-width: 0;
         padding-left: 50px;
       }
     }
@@ -80,10 +80,11 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        width: 300px;
-        flex-shrink: 0;
+        min-width: 200px;
+        max-width: 300px;
       }
       .main-right {
+        min-width: 0;
         padding-left: 50px;
       }
     }
