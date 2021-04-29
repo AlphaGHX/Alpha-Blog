@@ -2,6 +2,8 @@
   <div class="main">
     <div class="box">
       <div class="main-left">
+        <SideBar class="side-bar-toc" :data="sideBarTocData" />
+        <div style="height: 100px"></div>
         <SideBar class="side-bar" :data="sideBarData" />
       </div>
 
@@ -20,7 +22,7 @@ import { defineComponent } from 'vue'
 import SideBar from '@/components/SideBar.vue'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
-import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
+import { sideBarData, sideBarTocData, blogItemData } from '@/hooks/fakeDatas'
 
 export default defineComponent({
   name: 'Blog',
@@ -30,6 +32,7 @@ export default defineComponent({
     return {
       sideBarData,
       blogItemData,
+      sideBarTocData,
       getTop
     }
   },
@@ -43,6 +46,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .main {
+  div {
+    @include transition;
+  }
   padding-top: 160px;
   @media screen and (min-width: 1625px) {
     .box {
@@ -50,7 +56,7 @@ export default defineComponent({
       width: 1300px;
       display: flex;
       .main-left {
-        width: 300px;
+        width: 260px;
         flex-shrink: 0;
       }
       .main-right {
@@ -65,8 +71,7 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        min-width: 200px;
-        max-width: 300px;
+        min-width: 260px;
       }
       .main-right {
         min-width: 0;
@@ -80,8 +85,7 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        min-width: 200px;
-        max-width: 300px;
+        min-width: 240px;
       }
       .main-right {
         min-width: 0;

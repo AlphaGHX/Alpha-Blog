@@ -7,6 +7,10 @@ $linkColor: #ff0066;
 $tableBGColorA: #ffe7f0;
 $tableBGColorB: #ffddeb;
 
+@mixin transition {
+  transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
+}
+
 @mixin btn {
   transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
   cursor: pointer;

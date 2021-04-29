@@ -1,38 +1,65 @@
 <template>
   <div class="side-bar-main">
     <div class="box">
-      <div class="topImg"><img :src="topImgSrc" alt="topImg" /></div>
-      <div class="name">{{ name }}</div>
-      <div class="contact">
+      <div class="topImg" v-if="topImgSrc">
+        <img :src="topImgSrc" alt="topImg" />
+      </div>
+      <div class="name" v-if="name">{{ name }}</div>
+      <div class="contact" v-if="contacts">
         <div class="contact-img" v-for="(item, index) of contacts" :key="index">
-          <!-- <img
-            :src="require('../assets/svg/' + item + '.svg')"
-            alt="contactIcon"
-          /> -->
           <svg-icon :name="item"></svg-icon>
         </div>
       </div>
       <div class="content">
         <template v-for="(item, index) of contents" :key="index">
           <div class="content-item" @click="itemClick(index)">
-            <svg-icon :name="item.icon"></svg-icon>
+            <svg-icon v-if="topImgSrc" :name="item.icon || 'star'"></svg-icon>
             <div class="content-item-title">{{ item.title }}</div>
             <svg-icon
+              v-if="item.hasHide"
               :class="{ 'svg-active': item.isActive }"
               name="arrow"
             ></svg-icon>
           </div>
           <template v-if="item.hasHide">
-            <div
-              class="content-hideItem"
-              :class="{ 'content-hideItem-active': item.isActive }"
-              v-for="(itemH, indexH) of item.hideItem"
-              :key="indexH"
-              @click="hideItemClick(index, indexH)"
-            >
-              <svg-icon name="star"></svg-icon>
-              <div class="content-hideItem-title">{{ itemH.title }}</div>
-            </div>
+            <template v-for="(itemH, indexH) of item.hideItem" :key="indexH">
+              <div
+                class="content-item"
+                @click="itemClick(index, indexH)"
+                :class="{ 'content-hideItem': !item.isActive }"
+                style="padding-left: 10px"
+              >
+                <svg-icon
+                  v-if="topImgSrc"
+                  :name="itemH.icon || 'star'"
+                ></svg-icon>
+                <div class="content-item-title">{{ itemH.title }}</div>
+                <svg-icon
+                  v-if="itemH.hasHide"
+                  :class="{ 'svg-active': itemH.isActive }"
+                  name="arrow"
+                ></svg-icon>
+              </div>
+              <template v-if="itemH.hasHide">
+                <template
+                  v-for="(itemHH, indexHH) of itemH.hideItem"
+                  :key="indexHH"
+                >
+                  <div
+                    class="content-item"
+                    @click="itemClick(index, indexH, indexHH)"
+                    :class="{ 'content-hideItem': !itemH.isActive }"
+                    style="padding-left: 20px"
+                  >
+                    <svg-icon
+                      v-if="topImgSrc"
+                      :name="itemHH.icon || 'star'"
+                    ></svg-icon>
+                    <div class="content-item-title">{{ itemHH.title }}</div>
+                  </div>
+                </template>
+              </template>
+            </template>
           </template>
         </template>
       </div>
@@ -41,9 +68,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRef } from 'vue'
-import { SideBarData } from '@/hooks/Types'
-import store from '@/store'
+import { defineComponent, reactive, toRefs } from 'vue'
+import { SideBarData, SideBarTocData } from '@/hooks/Types'
 
 export default defineComponent({
   name: 'SideBar',
@@ -51,20 +77,29 @@ export default defineComponent({
     data: Object
   },
   setup(props) {
-    const sideBarData: SideBarData = props.data as SideBarData
-    const sideBarDataReactive = reactive(sideBarData)
+    const { topImgSrc = null, name = null, contacts = null, contents } = toRefs(
+      reactive(props.data as SideBarData)
+    )
 
-    const topImgSrc = toRef(sideBarDataReactive, 'topImgSrc')
-    const name = toRef(sideBarDataReactive, 'name')
-    const contents = toRef(sideBarDataReactive, 'contents')
-    const contacts = toRef(sideBarDataReactive, 'contacts')
-
-    const itemClick = function(x: number) {
-      contents.value[x].isActive = !contents.value[x].isActive
-    }
-
-    const hideItemClick = function(x: number, y: number) {
-      alert(x + ', ' + y)
+    const itemClick = function(...args: Array<number>) {
+      if (args.length === 1) {
+        console.log(args)
+        contents.value[args[0]].isActive = !contents.value[args[0]].isActive
+        const itemH = contents.value[args[0]].hideItem
+        if (itemH) {
+          itemH.forEach((item) => {
+            if (item.isActive) item.isActive = false
+          })
+        }
+      } else if (args.length === 2) {
+        console.log(args)
+        const itemH = contents.value[args[0]].hideItem
+        if (itemH) {
+          itemH[args[1]].isActive = !itemH[args[1]].isActive
+        }
+      } else {
+        console.log(args)
+      }
     }
 
     return {
@@ -72,7 +107,6 @@ export default defineComponent({
       name,
       contacts,
       contents,
-      hideItemClick,
       itemClick
     }
   }
@@ -112,26 +146,24 @@ export default defineComponent({
     }
     .content {
       padding: 20px 0;
-      .content-item,
-      .content-hideItem,
-      .content-hideItem-active {
+      .content-item {
         height: 40px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
         line-height: 40px;
         color: $TextColor;
         @include btn();
-        .content-item-title,
-        .content-hideItem-title {
+        .content-item-title {
+          flex: 1;
           font-size: 16px;
           font-weight: bold;
-          width: 100%;
-          margin-left: 10px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         svg {
           height: 20px;
-          width: 20%;
+          padding: 0 5px;
           transform: rotate(0deg);
           transition: 0.5s cubic-bezier(0.6, 0, 0, 1);
         }
@@ -140,14 +172,9 @@ export default defineComponent({
         }
       }
       .content-hideItem {
-        padding-left: 5%;
         overflow: hidden;
         height: 0;
         opacity: 0;
-      }
-      .content-hideItem-active {
-        height: 40px;
-        opacity: 1;
       }
     }
   }
