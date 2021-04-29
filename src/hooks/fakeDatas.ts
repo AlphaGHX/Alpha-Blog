@@ -9,19 +9,16 @@ export const sideBarData: SideBarData = {
     {
       title: '文章',
       icon: 'md-bookmarks',
-      hasHide: false,
       isActive: false
     },
     {
       title: '归档',
       icon: 'md-archive',
-      hasHide: true,
       isActive: false,
       hideItem: [
         {
           isActive: false,
           title: '2021',
-          hasHide: true,
           hideItem: [
             {
               title: '3'
@@ -30,51 +27,42 @@ export const sideBarData: SideBarData = {
         },
         {
           isActive: false,
-          title: '2020',
-          hasHide: false
+          title: '2020'
         },
         {
           isActive: false,
-          title: '2019',
-          hasHide: false
+          title: '2019'
         },
         {
           isActive: false,
-          title: '2018',
-          hasHide: false
+          title: '2018'
         },
         {
           isActive: false,
-          title: '2017',
-          hasHide: false
+          title: '2017'
         },
         {
           isActive: false,
-          title: '2016',
-          hasHide: false
+          title: '2016'
         }
       ]
     },
     {
       title: '分类',
       icon: 'md-pricetags',
-      hasHide: true,
       isActive: false,
       hideItem: [
         {
           isActive: false,
-          title: '前端',
-          hasHide: false
+          title: '前端'
         },
         {
           isActive: false,
-          title: '后端',
-          hasHide: false
+          title: '后端'
         },
         {
           isActive: false,
-          title: '算法',
-          hasHide: false
+          title: '算法'
         }
       ]
     }
@@ -83,32 +71,41 @@ export const sideBarData: SideBarData = {
 
 export const sideBarTocDataEX = function() {
   const data = store.state.tocData
-  const comH1 = { title: '', icon: '', isActive: false, hasHide: false }
-  const comH2 = { title: '', isActive: false, hasHide: false }
-  const comH3 = { title: '' }
-  let res: SideBarTocData = { contents: [] }
-  let sw = 0
+  let swH = -1
+  let swHH = -1
+  const res: SideBarTocData = { contents: [] }
 
   for (const item of data) {
-    if (item.level === 0 || item.level === 1) {
-      item.level = 0
-    } else if (item.level === 2 || item.level === 3) {
-      item.level = 1
-    } else {
-      item.level = 2
-    }
   }
 
   for (const item of data) {
-    if (item.level === 0) {
+    if (item.level === 0 || item.level === 1) {
       res.contents.push({
         title: item.name,
         icon: '',
         isActive: false,
-        hasHide: false
+        hideItem: []
+      })
+      swH++
+    } else if (item.level === 2 || item.level === 3) {
+      // eslint-disable-next-line no-unused-expressions
+      res.contents[swH].hideItem?.push({
+        title: item.name,
+        isActive: false,
+        hideItem: []
+      })
+      swHH++
+    } else {
+      // eslint-disable-next-line no-unused-expressions
+      res.contents[swH].hideItem?.[swHH].hideItem?.push({
+        title: item.name
       })
     }
   }
+
+  console.log(res)
+
+  return res
 }
 
 export const sideBarTocData: SideBarTocData = {
@@ -117,12 +114,10 @@ export const sideBarTocData: SideBarTocData = {
       title: 'H1',
       icon: 'star',
       isActive: false,
-      hasHide: true,
       hideItem: [
         {
           title: 'H2',
           isActive: false,
-          hasHide: true,
           hideItem: [
             {
               title: 'H3'
@@ -138,20 +133,17 @@ export const sideBarTocData: SideBarTocData = {
       title: 'H1',
       icon: 'star',
       isActive: false,
-      hasHide: true,
       hideItem: [
         {
           title: 'H2',
-          isActive: false,
-          hasHide: false
+          isActive: false
         }
       ]
     },
     {
       title: 'H1X',
       icon: 'star',
-      isActive: false,
-      hasHide: false
+      isActive: false
     }
   ]
 }

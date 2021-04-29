@@ -45,7 +45,7 @@ export default defineComponent({
 
     axios
       .get(
-        'https://raw.githubusercontent.com/ravenq/markdown-it-vue/master/README.md'
+        'https://raw.githubusercontent.com/matthieua/WOW/master/README.md'
       )
       .then((res) => {
         markdownOut.value = markdown.render(res.data)

@@ -22,11 +22,13 @@ import { defineComponent } from 'vue'
 import SideBar from '@/components/SideBar.vue'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
-import { sideBarData, sideBarTocData, blogItemData } from '@/hooks/fakeDatas'
+import { sideBarData, sideBarTocData, sideBarTocDataEX, blogItemData } from '@/hooks/fakeDatas'
 
 export default defineComponent({
   name: 'Blog',
   setup() {
+    setTimeout(sideBarTocDataEX, 1000)
+
     const getTop = blogItemData[0]
 
     return {

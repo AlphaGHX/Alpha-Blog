@@ -5,11 +5,9 @@ export interface SideBarData {
   contents: {
     title: string
     icon: string
-    hasHide: boolean
     isActive: boolean
     hideItem?: {
       title: string
-      hasHide: boolean
       isActive: boolean
       hideItem?: {
         title: string
@@ -22,11 +20,9 @@ export interface SideBarTocData {
   contents: {
     title: string
     icon: string
-    hasHide: boolean
     isActive: boolean
     hideItem?: {
       title: string
-      hasHide: boolean
       isActive: boolean
       hideItem?: {
         title: string

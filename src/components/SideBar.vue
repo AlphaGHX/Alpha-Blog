@@ -16,12 +16,12 @@
             <svg-icon v-if="topImgSrc" :name="item.icon || 'star'"></svg-icon>
             <div class="content-item-title">{{ item.title }}</div>
             <svg-icon
-              v-if="item.hasHide"
+              v-if="item.hideItem"
               :class="{ 'svg-active': item.isActive }"
               name="arrow"
             ></svg-icon>
           </div>
-          <template v-if="item.hasHide">
+          <template v-if="item.hideItem">
             <template v-for="(itemH, indexH) of item.hideItem" :key="indexH">
               <div
                 class="content-item"
@@ -35,12 +35,12 @@
                 ></svg-icon>
                 <div class="content-item-title">{{ itemH.title }}</div>
                 <svg-icon
-                  v-if="itemH.hasHide"
+                  v-if="itemH.hideItem"
                   :class="{ 'svg-active': itemH.isActive }"
                   name="arrow"
                 ></svg-icon>
               </div>
-              <template v-if="itemH.hasHide">
+              <template v-if="itemH.hideItem">
                 <template
                   v-for="(itemHH, indexHH) of itemH.hideItem"
                   :key="indexHH"
@@ -69,7 +69,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
-import { SideBarData, SideBarTocData } from '@/hooks/Types'
+import { SideBarData } from '@/hooks/Types'
 
 export default defineComponent({
   name: 'SideBar',
@@ -116,8 +116,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .side-bar-main {
   .box {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
     @include pinkBG;
     .topImg {
       transform: translate(0, -50%);
@@ -155,6 +155,7 @@ export default defineComponent({
         @include btn();
         .content-item-title {
           flex: 1;
+          padding-left: 5px;
           font-size: 16px;
           font-weight: bold;
           overflow: hidden;
