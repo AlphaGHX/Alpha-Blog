@@ -9,7 +9,8 @@ export const sideBarData: SideBarData = {
     {
       title: '文章',
       icon: 'md-bookmarks',
-      isActive: false
+      isActive: false,
+      hideItem: []
     },
     {
       title: '归档',
@@ -27,23 +28,28 @@ export const sideBarData: SideBarData = {
         },
         {
           isActive: false,
-          title: '2020'
+          title: '2020',
+          hideItem: []
         },
         {
           isActive: false,
-          title: '2019'
+          title: '2019',
+          hideItem: []
         },
         {
           isActive: false,
-          title: '2018'
+          title: '2018',
+          hideItem: []
         },
         {
           isActive: false,
-          title: '2017'
+          title: '2017',
+          hideItem: []
         },
         {
           isActive: false,
-          title: '2016'
+          title: '2016',
+          hideItem: []
         }
       ]
     },
@@ -54,15 +60,18 @@ export const sideBarData: SideBarData = {
       hideItem: [
         {
           isActive: false,
-          title: '前端'
+          title: '前端',
+          hideItem: []
         },
         {
           isActive: false,
-          title: '后端'
+          title: '后端',
+          hideItem: []
         },
         {
           isActive: false,
-          title: '算法'
+          title: '算法',
+          hideItem: []
         }
       ]
     }
@@ -71,15 +80,33 @@ export const sideBarData: SideBarData = {
 
 export const sideBarTocDataEX = function() {
   const data = store.state.tocData
-  let swH = -1
-  let swHH = -1
   const res: SideBarTocData = { contents: [] }
 
+  let max = -1
+  let min = 10
   for (const item of data) {
+    if (item.level > max) max = item.level
+    if (item.level < min) min = item.level
   }
 
+  let avg = (max - min) / 3
+  if (avg === 0) avg = 1
+  let tmp = 0
+  // console.log(max, min, avg)
   for (const item of data) {
-    if (item.level === 0 || item.level === 1) {
+    if (item.level >= min && item.level < min + avg) item.level = 0
+    else if (item.level >= min + avg && item.level < max - avg) item.level = 1
+    else if (item.level >= max - avg && item.level <= max) item.level = 2
+    if (item.level === 2 && tmp === 0) item.level = 1
+    tmp = item.level
+    // console.log(item)
+  }
+
+  let swH = -1
+  let swHH = -1
+  for (const item of data) {
+    if (item.level === 0) {
+      swHH = -1
       res.contents.push({
         title: item.name,
         icon: '',
@@ -87,7 +114,7 @@ export const sideBarTocDataEX = function() {
         hideItem: []
       })
       swH++
-    } else if (item.level === 2 || item.level === 3) {
+    } else if (item.level === 1) {
       // eslint-disable-next-line no-unused-expressions
       res.contents[swH].hideItem?.push({
         title: item.name,
@@ -101,9 +128,8 @@ export const sideBarTocDataEX = function() {
         title: item.name
       })
     }
+    // console.log(swH, swHH)
   }
-
-  console.log(res)
 
   return res
 }
@@ -136,14 +162,16 @@ export const sideBarTocData: SideBarTocData = {
       hideItem: [
         {
           title: 'H2',
-          isActive: false
+          isActive: false,
+          hideItem: []
         }
       ]
     },
     {
       title: 'H1X',
       icon: 'star',
-      isActive: false
+      isActive: false,
+      hideItem: []
     }
   ]
 }

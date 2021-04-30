@@ -18,16 +18,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, watch } from 'vue'
 import SideBar from '@/components/SideBar.vue'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
-import { sideBarData, sideBarTocData, sideBarTocDataEX, blogItemData } from '@/hooks/fakeDatas'
+import { sideBarData, sideBarTocDataEX, blogItemData } from '@/hooks/fakeDatas'
+import store from '@/store'
 
 export default defineComponent({
   name: 'Blog',
   setup() {
-    setTimeout(sideBarTocDataEX, 1000)
+    const sideBarTocData = reactive({ contents: {} })
+    // setTimeout(() => {
+    //   sideBarTocData.contents = sideBarTocDataEX().contents
+    //   console.log(sideBarTocData)
+    // }, 2000)
+
+    watch(store.state.tocData, (value, oldValue) => {
+      sideBarTocData.contents = sideBarTocDataEX().contents
+    })
 
     const getTop = blogItemData[0]
 
@@ -58,8 +67,7 @@ export default defineComponent({
       width: 1300px;
       display: flex;
       .main-left {
-        width: 260px;
-        flex-shrink: 0;
+        max-width: 260px;
       }
       .main-right {
         width: 1000px;
@@ -73,7 +81,7 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        min-width: 260px;
+        max-width: 260px;
       }
       .main-right {
         min-width: 0;
@@ -87,7 +95,7 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        min-width: 240px;
+        max-width: 240px;
       }
       .main-right {
         min-width: 0;

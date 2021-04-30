@@ -16,12 +16,12 @@
             <svg-icon v-if="topImgSrc" :name="item.icon || 'star'"></svg-icon>
             <div class="content-item-title">{{ item.title }}</div>
             <svg-icon
-              v-if="item.hideItem"
+              v-if="item.hideItem.length"
               :class="{ 'svg-active': item.isActive }"
               name="arrow"
             ></svg-icon>
           </div>
-          <template v-if="item.hideItem">
+          <template v-if="item.hideItem.length">
             <template v-for="(itemH, indexH) of item.hideItem" :key="indexH">
               <div
                 class="content-item"
@@ -35,12 +35,12 @@
                 ></svg-icon>
                 <div class="content-item-title">{{ itemH.title }}</div>
                 <svg-icon
-                  v-if="itemH.hideItem"
+                  v-if="itemH.hideItem.length"
                   :class="{ 'svg-active': itemH.isActive }"
                   name="arrow"
                 ></svg-icon>
               </div>
-              <template v-if="itemH.hideItem">
+              <template v-if="itemH.hideItem.length">
                 <template
                   v-for="(itemHH, indexHH) of itemH.hideItem"
                   :key="indexHH"
@@ -80,6 +80,14 @@ export default defineComponent({
     const { topImgSrc = null, name = null, contacts = null, contents } = toRefs(
       reactive(props.data as SideBarData)
     )
+
+    setTimeout(() => {
+      if (contents.value.length <= 3) {
+        contents.value.forEach((item) => {
+          item.isActive = true
+        })
+      }
+    }, 500)
 
     const itemClick = function(...args: Array<number>) {
       if (args.length === 1) {

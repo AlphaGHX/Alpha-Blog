@@ -6,10 +6,10 @@ export interface SideBarData {
     title: string
     icon: string
     isActive: boolean
-    hideItem?: {
+    hideItem: {
       title: string
       isActive: boolean
-      hideItem?: {
+      hideItem: {
         title: string
       }[]
     }[]
@@ -21,10 +21,10 @@ export interface SideBarTocData {
     title: string
     icon: string
     isActive: boolean
-    hideItem?: {
+    hideItem: {
       title: string
       isActive: boolean
-      hideItem?: {
+      hideItem: {
         title: string
       }[]
     }[]
