@@ -6,10 +6,10 @@ import About from '@/views/About.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: { name: 'Blog' }
+    redirect: { path: '/blog/list' }
   },
   {
-    path: '/blog',
+    path: '/blog/:name',
     name: 'Blog',
     component: Blog
   },

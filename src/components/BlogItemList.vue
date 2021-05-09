@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for="(item, index) of data" :key="index">
-      <BlogItemData :data="item" />
+      <BlogItemData :data="item" :index="index" />
     </template>
   </div>
 </template>

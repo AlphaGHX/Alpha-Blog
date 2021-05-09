@@ -12,12 +12,10 @@ import hljs from 'highlight.js'
 import '@/style/githubMarkdown.scss'
 import markdownIt from 'markdown-it'
 import store from '@/store'
+import { getSideBarTocData } from '@/hooks/tools'
 
 export default defineComponent({
   name: 'MarkDown',
-  props: {
-    data: String
-  },
   setup() {
     const markdown = markdownIt({
       highlight: function(str, lang) {
@@ -35,21 +33,21 @@ export default defineComponent({
       .use(require('markdown-it-sup'))
       .use(require('markdown-it-sub'))
       .use(require('markdown-it-toc-and-anchor').default, {
-        tocCallback: function(tocMarkdown: any, tocArray: any, tocHtml: any) {
-          store.commit('setTocData', tocArray)
+        tocCallback: function(
+          tocMarkdown: any,
+          tocArray: any,
+          tocHtml: any
+        ) {
+          store.commit('setTocData', getSideBarTocData(tocArray))
         },
         anchorLinkSymbol: '#'
       })
 
     const markdownOut = ref()
 
-    axios
-      .get(
-        'https://raw.githubusercontent.com/matthieua/WOW/master/README.md'
-      )
-      .then((res) => {
-        markdownOut.value = markdown.render(res.data)
-      })
+    axios.get(store.state.blogItem.contentSrc).then((res) => {
+      markdownOut.value = markdown.render(res.data)
+    })
 
     return {
       markdownOut

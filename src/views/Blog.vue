@@ -2,49 +2,56 @@
   <div class="main">
     <div class="box">
       <div class="main-left">
-        <SideBar class="side-bar-toc" :data="sideBarTocData" />
-        <div style="height: 100px"></div>
-        <SideBar class="side-bar" :data="sideBarData" />
+        <transition name="fade" mode="out-in">
+          <SideBar class="side-bar" v-if="leftSW" :data="sideBarData" />
+          <SideBar class="side-bar-toc" v-else :data="$store.state.tocData" />
+        </transition>
       </div>
-
       <div class="main-right">
-        <BlogContent class="blog-content" :data="getTop" />
-        <BlogItemList class="blog-item-list" :data="blogItemData" />
+        <transition name="fade" mode="out-in">
+          <BlogItemList class="blog-item-list" v-if="rightSW" :data="blogItemData" />
+          <BlogContent class="blog-content" v-else :data="getTop" />
+        </transition>
       </div>
-
       <router-view />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import SideBar from '@/components/SideBar.vue'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
-import { sideBarData, sideBarTocDataEX, blogItemData } from '@/hooks/fakeDatas'
+import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
 import store from '@/store'
+import router from '@/router'
 
 export default defineComponent({
   name: 'Blog',
   setup() {
-    const sideBarTocData = reactive({ contents: {} })
-    // setTimeout(() => {
-    //   sideBarTocData.contents = sideBarTocDataEX().contents
-    //   console.log(sideBarTocData)
-    // }, 2000)
+    const leftSW = ref(true)
+    const rightSW = ref(true)
+    const getTop = ref(blogItemData[0])
 
-    watch(store.state.tocData, (value, oldValue) => {
-      sideBarTocData.contents = sideBarTocDataEX().contents
+    watch(router.currentRoute, (value, oldValue) => {
+      console.log(value.params, oldValue.params)
+      if (value.params.name === 'list') {
+        leftSW.value = true
+        rightSW.value = true
+      } else {
+        leftSW.value = false
+        rightSW.value = false
+        getTop.value = blogItemData[store.state.blogItem.index]
+      }
     })
-
-    const getTop = blogItemData[0]
 
     return {
       sideBarData,
       blogItemData,
-      sideBarTocData,
-      getTop
+      getTop,
+      leftSW,
+      rightSW
     }
   },
   components: {
@@ -57,9 +64,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .main {
-  div {
-    @include transition;
-  }
+  @include vueTransition;
   padding-top: 160px;
   @media screen and (min-width: 1625px) {
     .box {
@@ -67,10 +72,10 @@ export default defineComponent({
       width: 1300px;
       display: flex;
       .main-left {
-        max-width: 260px;
+        width: 260px;
       }
       .main-right {
-        width: 1000px;
+        flex: 1;
         padding-left: 50px;
       }
     }
@@ -81,9 +86,10 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        max-width: 260px;
+        width: 260px;
       }
       .main-right {
+        flex: 1;
         min-width: 0;
         padding-left: 50px;
       }
@@ -95,9 +101,10 @@ export default defineComponent({
       width: 80%;
       display: flex;
       .main-left {
-        max-width: 240px;
+        width: 240px;
       }
       .main-right {
+        flex: 1;
         min-width: 0;
         padding-left: 50px;
       }

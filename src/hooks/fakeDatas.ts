@@ -78,8 +78,9 @@ export const sideBarData: SideBarData = {
   ]
 }
 
-export const sideBarTocDataEX = function() {
-  const data = store.state.tocData
+export const sideBarTocDataEX = function(
+  data: { name: string; level: number }[]
+) {
   const res: SideBarTocData = { contents: [] }
 
   let max = -1
@@ -99,7 +100,7 @@ export const sideBarTocDataEX = function() {
     else if (item.level >= max - avg && item.level <= max) item.level = 2
     if (item.level === 2 && tmp === 0) item.level = 1
     tmp = item.level
-    // console.log(item)
+    console.log(item)
   }
 
   let swH = -1
@@ -134,54 +135,14 @@ export const sideBarTocDataEX = function() {
   return res
 }
 
-export const sideBarTocData: SideBarTocData = {
-  contents: [
-    {
-      title: 'H1',
-      icon: 'star',
-      isActive: false,
-      hideItem: [
-        {
-          title: 'H2',
-          isActive: false,
-          hideItem: [
-            {
-              title: 'H3'
-            },
-            {
-              title: 'H3X'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'H1',
-      icon: 'star',
-      isActive: false,
-      hideItem: [
-        {
-          title: 'H2',
-          isActive: false,
-          hideItem: []
-        }
-      ]
-    },
-    {
-      title: 'H1X',
-      icon: 'star',
-      isActive: false,
-      hideItem: []
-    }
-  ]
-}
-
 export const blogItemData: BlogItemData[] = [
   {
     imgSrc:
       'https://files.yande.re/sample/20961135f093b26a376f58aa578919dd/yande.re%20771763%20sample%20hanasaku_iroha%20maid%20matsumae_ohana%20oshimizu_nako%20skirt_lift%20tagme%20tsurugi_minko%20wa_maid%20wakura_yuina.jpg',
     title: '关于AlphaBlog',
     text: '从SketchUI设计到VUE前端设计再到后端的艰辛过程',
+    contentSrc:
+      'https://raw.githubusercontent.com/AlphaGHX/Hackintosh-CVN-b460i-efi/main/README.md',
     tag: [
       {
         tagName: '前端',
@@ -206,6 +167,8 @@ export const blogItemData: BlogItemData[] = [
       'https://files.yande.re/sample/96eea93363324d72531f3da291454117/yande.re%20772569%20sample%20tagme.jpg',
     title: '甲骨文云VPS白嫖',
     text: '甲骨文云50M对等上下行2核1G的VPS免费嫖两台',
+    contentSrc:
+      'https://raw.githubusercontent.com/janpaepke/ScrollMagic/master/README.md',
     tag: [
       {
         tagName: 'VPS',
@@ -230,6 +193,8 @@ export const blogItemData: BlogItemData[] = [
       'https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/evolving_google_identity_3x2.jpg',
     title: 'Google Voice轻松转移和充值',
     text: '年轻人的第一张+1手机卡',
+    contentSrc:
+      'https://raw.githubusercontent.com/sandoche/Darkmode.js/master/README.md',
     tag: [
       {
         tagName: '其他',

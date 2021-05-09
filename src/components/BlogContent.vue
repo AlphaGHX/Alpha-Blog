@@ -39,9 +39,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .blog-content-main {
-  div {
-    @include transition;
-  }
   @media screen and (min-width: 1300px) {
     .box {
       @include pinkBG;

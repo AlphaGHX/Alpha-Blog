@@ -1,6 +1,6 @@
 <template>
   <div class="blog-item-main">
-    <div class="box">
+    <div @click="blogItemClick" class="box">
       <div class="main-img">
         <img :src="imgSrc" alt="IMG" />
       </div>
@@ -22,24 +22,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { BlogItemData } from '@/hooks/Types'
+import store from '@/store'
+import router from '@/router'
 
 export default defineComponent({
   name: 'BlogItem',
   props: {
-    data: Object
+    data: Object,
+    index: Number
   },
   setup(props) {
     const blogItemData: BlogItemData = props.data as BlogItemData
 
-    const { imgSrc, title, text, tag } = blogItemData
+    const { imgSrc, title, contentSrc, text, tag } = blogItemData
+
+    function blogItemClick() {
+      store.commit('setBlogItem', { title, index: props.index, contentSrc })
+      router.push({ path: '/blog/' + title })
+    }
 
     return {
       imgSrc,
       title,
       text,
-      tag
+      tag,
+      blogItemClick
     }
   }
 })
@@ -53,6 +62,12 @@ export default defineComponent({
       display: flex;
       height: 200px;
       @include pinkBG;
+      cursor: pointer;
+      @include transition;
+      &:hover {
+        box-shadow: 0px 1px 10px 1px #ffe2ed;
+        @include transition;
+      }
       .main-img {
         height: 200px;
         width: 300px;
@@ -105,6 +120,10 @@ export default defineComponent({
       margin-bottom: 50px;
       background: linear-gradient(180deg, #fff5f9cc, #ffeaf2cc);
       box-shadow: 0px 2px 20px 2px #ffe2ed;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 0px 1px 10px 1px #ffe2ed;
+      }
       .main-img {
         height: 200px;
         overflow: hidden;

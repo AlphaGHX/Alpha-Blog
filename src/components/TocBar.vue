@@ -1,15 +1,6 @@
 <template>
   <div class="side-bar-main">
     <div class="box">
-      <div class="topImg" v-if="topImgSrc">
-        <img :src="topImgSrc" alt="topImg" />
-      </div>
-      <div class="name" v-if="name">{{ name }}</div>
-      <div class="contact" v-if="contacts">
-        <div class="contact-img" v-for="(item, index) of contacts" :key="index">
-          <svg-icon :name="item"></svg-icon>
-        </div>
-      </div>
       <div class="content">
         <template v-for="(item, index) of contents" :key="index">
           <div class="content-item" @click="itemClick(index)">
@@ -68,18 +59,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
-import { SideBarData } from '@/hooks/Types'
+import { defineComponent, ref } from 'vue'
+import { SideBarTocData } from '@/hooks/Types'
+import store from '@/store'
 
 export default defineComponent({
-  name: 'SideBar',
+  name: 'TocBar',
   props: {
     data: Object
   },
   setup(props) {
-    const { topImgSrc = null, name = null, contacts = null, contents } = toRefs(
-      reactive(props.data as SideBarData)
-    )
+    const contents = ref(props as SideBarTocData)
 
     const itemClick = function(...args: Array<number>) {
       if (args.length === 1) {
@@ -103,9 +93,6 @@ export default defineComponent({
     }
 
     return {
-      topImgSrc,
-      name,
-      contacts,
       contents,
       itemClick
     }
@@ -119,31 +106,6 @@ export default defineComponent({
     padding-left: 30px;
     padding-right: 30px;
     @include pinkBG;
-    .topImg {
-      transform: translate(0, -50%);
-      img {
-        height: 70px;
-      }
-    }
-    .name {
-      margin-top: -20px;
-      color: $mainTextColor;
-      font-size: 30px;
-    }
-    .contact {
-      padding-top: 10px;
-      display: flex;
-      height: 40px;
-      .contact-img {
-        text-align: center;
-        width: 100%;
-        @include btn();
-        svg {
-          height: 40px;
-          color: $TextColor;
-        }
-      }
-    }
     .content {
       padding: 20px 0;
       .content-item {

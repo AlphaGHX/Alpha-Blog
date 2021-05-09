@@ -100,7 +100,7 @@ export default function() {
     nowMain = 0
     statSet(nowMain, 1)
     setTimeout(function() {
-      router.push({ name: 'Blog' }).then(function() {
+      router.push({ path: '/blog/list' }).then(function() {
         statSet(nowMain, 0)
       })
     }, 500)
