@@ -9,7 +9,7 @@
         <div class="main-content-text">{{ text }}</div>
         <div class="main-content-tag">
           <template v-for="(item, index) of tag" :key="index">
-            <div class="main-content-tag-item">
+            <div class="main-content-tag-item" @click.stop="">
               <div>{{ item.tagName }}</div>
               <svg-icon :name="item.icon"></svg-icon>
             </div>

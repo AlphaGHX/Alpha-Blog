@@ -81,6 +81,14 @@ export default defineComponent({
       reactive(props.data as SideBarData)
     )
 
+    if (contents.value.length <= 2) {
+      setTimeout(() => {
+        contents.value.forEach((value) => {
+          value.isActive = !value.isActive
+        })
+      }, 100)
+    }
+
     const itemClick = function(...args: Array<number>) {
       if (args.length === 1) {
         console.log(args)

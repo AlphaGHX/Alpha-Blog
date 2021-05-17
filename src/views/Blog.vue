@@ -13,7 +13,6 @@
           <BlogContent class="blog-content" v-else :data="blogItemData[$store.state.nowPage]" />
         </transition>
       </div>
-      <router-view />
     </div>
   </div>
 </template>
@@ -76,6 +75,7 @@ export default defineComponent({
       .main-right {
         flex: 1;
         padding-left: 50px;
+        min-width: 0;
       }
     }
   }

@@ -90,6 +90,6 @@ export const getMarkdownData = function(contentSrc: string) {
   })
 }
 
-export const pageTo = function(x: number) {
-  const nowScroll = 
-}
+// export const pageTo = function(x: number) {
+//   const nowScroll =
+// }
