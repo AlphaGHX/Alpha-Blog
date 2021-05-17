@@ -1,7 +1,11 @@
+import store from '@/store'
+import axios from 'axios'
+import hljs from 'highlight.js'
+import markdownIt from 'markdown-it'
 import { SideBarTocData } from './Types'
 
 export const getSideBarTocData = function(
-  data: { content: string, level: number }[]
+  data: { content: string; level: number }[]
 ) {
   const res: SideBarTocData = { contents: [] }
 
@@ -22,7 +26,7 @@ export const getSideBarTocData = function(
     else if (item.level >= max - avg && item.level <= max) item.level = 2
     if (item.level === 2 && tmp === 0) item.level = 1
     tmp = item.level
-    console.log(item)
+    // console.log(item)
   }
 
   let swH = -1
@@ -53,7 +57,39 @@ export const getSideBarTocData = function(
     }
     // console.log(swH, swHH)
   }
-  console.log(res)
+  // console.log(res)
 
   return res
+}
+
+export const getMarkdownData = function(contentSrc: string) {
+  const markdown = markdownIt({
+    highlight: function(str, lang) {
+      if (lang) {
+        if (lang === 'vue') lang = 'html'
+        try {
+          return hljs.highlight(lang, str).value
+        } catch (__) {}
+      }
+
+      return ''
+    }
+  })
+    .use(require('markdown-it-anchor').default)
+    .use(require('markdown-it-sup'))
+    .use(require('markdown-it-sub'))
+    .use(require('markdown-it-toc-and-anchor').default, {
+      tocCallback: function(tocMarkdown: any, tocArray: any, tocHtml: any) {
+        store.commit('setTocData', getSideBarTocData(tocArray))
+      },
+      anchorLinkSymbol: '#'
+    })
+
+  return axios.get(contentSrc).then((res) => {
+    return markdown.render(res.data)
+  })
+}
+
+export const pageTo = function(x: number) {
+  const nowScroll = 
 }

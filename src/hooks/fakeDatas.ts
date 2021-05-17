@@ -138,7 +138,7 @@ export const sideBarTocDataEX = function(
 export const blogItemData: BlogItemData[] = [
   {
     imgSrc:
-      'https://files.yande.re/sample/20961135f093b26a376f58aa578919dd/yande.re%20771763%20sample%20hanasaku_iroha%20maid%20matsumae_ohana%20oshimizu_nako%20skirt_lift%20tagme%20tsurugi_minko%20wa_maid%20wakura_yuina.jpg',
+      'https://ultramunch.com/wp-content/uploads/2020/06/How-Strong-is-Your-Loli-Detection-Skills-Quiz.jpg',
     title: '关于AlphaBlog',
     text: '从SketchUI设计到VUE前端设计再到后端的艰辛过程',
     contentSrc:
@@ -164,7 +164,7 @@ export const blogItemData: BlogItemData[] = [
   },
   {
     imgSrc:
-      'https://files.yande.re/sample/96eea93363324d72531f3da291454117/yande.re%20772569%20sample%20tagme.jpg',
+      'https://wallpapercave.com/wp/wp4747936.png',
     title: '甲骨文云VPS白嫖',
     text: '甲骨文云50M对等上下行2核1G的VPS免费嫖两台',
     contentSrc:

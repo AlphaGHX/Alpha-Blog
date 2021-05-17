@@ -22,10 +22,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import { BlogItemData } from '@/hooks/Types'
 import store from '@/store'
 import router from '@/router'
+import { getMarkdownData } from '@/hooks/tools'
 
 export default defineComponent({
   name: 'BlogItem',
@@ -39,8 +40,12 @@ export default defineComponent({
     const { imgSrc, title, contentSrc, text, tag } = blogItemData
 
     function blogItemClick() {
-      store.commit('setBlogItem', { title, index: props.index, contentSrc })
-      router.push({ path: '/blog/' + title })
+      getMarkdownData(contentSrc)
+        .then((value) => {
+          store.commit('setMarkdownData', value)
+        })
+        .then(() => store.commit('setNowPage', props.index))
+        .then(() => router.push({ path: '/blog/' + title }))
     }
 
     return {

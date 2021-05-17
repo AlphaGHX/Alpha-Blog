@@ -10,7 +10,7 @@
       <div class="main-right">
         <transition name="fade" mode="out-in">
           <BlogItemList class="blog-item-list" v-if="rightSW" :data="blogItemData" />
-          <BlogContent class="blog-content" v-else :data="getTop" />
+          <BlogContent class="blog-content" v-else :data="blogItemData[$store.state.nowPage]" />
         </transition>
       </div>
       <router-view />
@@ -24,7 +24,6 @@ import SideBar from '@/components/SideBar.vue'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
 import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
-import store from '@/store'
 import router from '@/router'
 
 export default defineComponent({
@@ -32,24 +31,20 @@ export default defineComponent({
   setup() {
     const leftSW = ref(true)
     const rightSW = ref(true)
-    const getTop = ref(blogItemData[0])
 
-    watch(router.currentRoute, (value, oldValue) => {
-      console.log(value.params, oldValue.params)
+    watch(router.currentRoute, (value) => {
       if (value.params.name === 'list') {
         leftSW.value = true
         rightSW.value = true
       } else {
         leftSW.value = false
         rightSW.value = false
-        getTop.value = blogItemData[store.state.blogItem.index]
       }
     })
 
     return {
       sideBarData,
       blogItemData,
-      getTop,
       leftSW,
       rightSW
     }
@@ -66,6 +61,10 @@ export default defineComponent({
 .main {
   @include vueTransition;
   padding-top: 160px;
+  .side-bar-main {
+    position: sticky;
+    top: 80px;
+  }
   @media screen and (min-width: 1625px) {
     .box {
       margin: 0 auto;

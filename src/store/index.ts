@@ -3,18 +3,18 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     tocData: {},
-    blogItem: {
-      title: '',
-      index: -1,
-      contentSrc: ''
-    }
+    markdownData: {},
+    nowPage: 0
   },
   mutations: {
     setTocData(state, data) {
       state.tocData = data
     },
-    setBlogItem(state, data) {
-      state.blogItem = data
+    setMarkdownData(state, data) {
+      state.markdownData = data
+    },
+    setNowPage(state, data) {
+      state.nowPage = data
     }
   },
   actions: {},
