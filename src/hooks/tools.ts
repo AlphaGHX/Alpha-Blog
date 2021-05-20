@@ -90,14 +90,14 @@ export const getMarkdownData = function(contentSrc: string) {
   })
 }
 
-export const pageTo = function(now: number, end: number) {
+export const pageTo = function(now: number, end: number): void {
   if (isNaN(now) || isNaN(end)) {
     return
   }
   console.log(now, end)
   now = Math.ceil(now)
   function render() {
-    let step = (end - now) / 20
+    let step = (end - now) / 10
     step = step >= 0 ? Math.ceil(step) : Math.floor(step)
     now += step
     window.scrollTo(0, now)

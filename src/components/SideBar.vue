@@ -1,10 +1,12 @@
 <template>
   <div class="side-bar-main">
     <div class="box">
-      <div class="topImg" v-if="topImgSrc">
-        <img :src="topImgSrc" alt="topImg" />
+      <div class="myInfo" v-if="topImgSrc">
+        <div class="topImg" v-if="topImgSrc">
+          <img :src="topImgSrc" alt="topImg" />
+        </div>
+        <div class="name" v-if="name">{{ name }}</div>
       </div>
-      <div class="name" v-if="name">{{ name }}</div>
       <div class="contact" v-if="contacts">
         <div class="contact-img" v-for="(item, index) of contacts" :key="index">
           <svg-icon :name="item"></svg-icon>
@@ -170,19 +172,24 @@ export default defineComponent({
     max-height: 80vh;
     overflow-y: auto;
     @include pinkBG;
-    .topImg {
-      transform: translate(0, -50%);
-      img {
-        height: 70px;
+    .myInfo {
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      .topImg {
+        img {
+          height: 70px;
+          border-radius: 35px;
+        }
+      }
+      .name {
+        color: $mainTextColor;
+        font-size: 30px;
+        margin-left: 30px;
       }
     }
-    .name {
-      margin-top: -20px;
-      color: $mainTextColor;
-      font-size: 30px;
-    }
     .contact {
-      padding-top: 10px;
+      padding-top: 30px;
       display: flex;
       height: 40px;
       .contact-img {

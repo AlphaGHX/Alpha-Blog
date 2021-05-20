@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import SideBar from '@/components/SideBar.vue'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
