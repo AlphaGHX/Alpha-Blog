@@ -70,6 +70,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { SideBarData } from '@/hooks/Types'
+import { pageTo } from '@/hooks/tools'
 
 export default defineComponent({
   name: 'SideBar',
@@ -94,6 +95,16 @@ export default defineComponent({
         console.log(args)
         contents.value[args[0]].isActive = !contents.value[args[0]].isActive
         const itemH = contents.value[args[0]].hideItem
+        pageTo(
+          document.documentElement.scrollTop,
+          (document.getElementById(
+            encodeURI(
+              contents.value[args[0]].title.toLowerCase().replaceAll(' ', '-')
+            )
+          )?.offsetTop as number) - 100
+        )
+        location.hash =
+          '#' + contents.value[args[0]].title.toLowerCase().replaceAll(' ', '-')
         if (itemH) {
           itemH.forEach((item) => {
             if (item.isActive) item.isActive = false
@@ -102,11 +113,41 @@ export default defineComponent({
       } else if (args.length === 2) {
         console.log(args)
         const itemH = contents.value[args[0]].hideItem
+        pageTo(
+          document.documentElement.scrollTop,
+          (document.getElementById(
+            encodeURI(
+              contents.value[args[0]].hideItem[args[1]].title
+                .toLowerCase()
+                .replaceAll(' ', '-')
+            )
+          )?.offsetTop as number) - 100
+        )
+        location.hash =
+          '#' +
+          contents.value[args[0]].hideItem[args[1]].title
+            .toLowerCase()
+            .replaceAll(' ', '-')
         if (itemH) {
           itemH[args[1]].isActive = !itemH[args[1]].isActive
         }
       } else {
         console.log(args)
+        pageTo(
+          document.documentElement.scrollTop,
+          (document.getElementById(
+            encodeURI(
+              contents.value[args[0]].hideItem[args[1]].hideItem[args[2]].title
+                .toLowerCase()
+                .replaceAll(' ', '-')
+            )
+          )?.offsetTop as number) - 100
+        )
+        location.hash =
+          '#' +
+          contents.value[args[0]].hideItem[args[1]].hideItem[args[2]].title
+            .toLowerCase()
+            .replaceAll(' ', '-')
       }
     }
 
@@ -126,6 +167,8 @@ export default defineComponent({
   .box {
     padding-left: 30px;
     padding-right: 30px;
+    max-height: 80vh;
+    overflow-y: auto;
     @include pinkBG;
     .topImg {
       transform: translate(0, -50%);

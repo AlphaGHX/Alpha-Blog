@@ -90,6 +90,20 @@ export const getMarkdownData = function(contentSrc: string) {
   })
 }
 
-// export const pageTo = function(x: number) {
-//   const nowScroll =
-// }
+export const pageTo = function(now: number, end: number) {
+  if (isNaN(now) || isNaN(end)) {
+    return
+  }
+  console.log(now, end)
+  now = Math.ceil(now)
+  function render() {
+    let step = (end - now) / 20
+    step = step >= 0 ? Math.ceil(step) : Math.floor(step)
+    now += step
+    window.scrollTo(0, now)
+    if (now !== end) {
+      requestAnimationFrame(render)
+    }
+  }
+  requestAnimationFrame(render)
+}
