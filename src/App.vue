@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import top from './hooks/Home'
+import useTop from './hooks/Home'
 
 export default defineComponent({
   setup() {
@@ -32,7 +32,7 @@ export default defineComponent({
       toolsStyle,
       aboutStyle,
       topTextOp
-    } = top()
+    } = useTop()
 
     return {
       toBlog,

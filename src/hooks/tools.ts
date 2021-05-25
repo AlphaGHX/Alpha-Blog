@@ -1,3 +1,4 @@
+import router from '@/router'
 import store from '@/store'
 import axios from 'axios'
 import hljs from 'highlight.js'

@@ -1,4 +1,3 @@
-import $ from 'jquery'
 export interface SideBarData {
   topImgSrc: string
   name: string

@@ -8,6 +8,12 @@
         <div class="main-content-title">{{ title }}</div>
         <div class="main-content-text">{{ text }}</div>
         <div class="main-content-tag">
+          <transition name="fade">
+            <div class="main-content-tag-item" v-if="isLoading">
+              <div>载入...</div>
+              <Loading class="main-content-tag-item" />
+            </div>
+          </transition>
           <template v-for="(item, index) of tag" :key="index">
             <div class="main-content-tag-item" @click.stop="">
               <div>{{ item.tagName }}</div>
@@ -22,11 +28,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { BlogItemData } from '@/hooks/Types'
 import store from '@/store'
 import router from '@/router'
 import { getMarkdownData } from '@/hooks/tools'
+import Loading from '@/components/Loading.vue'
 
 export default defineComponent({
   name: 'BlogItem',
@@ -39,13 +46,19 @@ export default defineComponent({
 
     const { imgSrc, title, contentSrc, text, tag } = blogItemData
 
+    const isLoading = ref(false)
+
     function blogItemClick() {
+      isLoading.value = true
       getMarkdownData(contentSrc)
         .then((value) => {
           store.commit('setMarkdownData', value)
         })
         .then(() => store.commit('setNowPage', props.index))
-        .then(() => router.push({ path: '/blog/' + title }))
+        .then(() => {
+          isLoading.value = false
+          router.push({ path: '/blog/' + title })
+        })
     }
 
     return {
@@ -53,14 +66,19 @@ export default defineComponent({
       title,
       text,
       tag,
-      blogItemClick
+      blogItemClick,
+      isLoading
     }
+  },
+  components: {
+    Loading
   }
 })
 </script>
 
 <style lang="scss" scoped>
 .blog-item-main {
+  @include vueFadeTransition;
   @media screen and (min-width: 1300px) {
     .box {
       margin-bottom: 50px;

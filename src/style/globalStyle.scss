@@ -58,3 +58,22 @@ $tableBGColorB: #ffddeb;
     transform: translate(0, 50px);
   }
 }
+
+@mixin vueFadeTransition {
+  .fade-enter-from {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    @include transition;
+  }
+  .fade-enter-to {
+  }
+  .fade-leave-from {
+  }
+  .fade-leave-active {
+    @include transition;
+  }
+  .fade-leave-to {
+    opacity: 0;
+  }
+}
