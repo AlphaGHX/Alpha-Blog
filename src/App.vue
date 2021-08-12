@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import useTop from './hooks/Home'
+import useTop from './utils/Home'
 
 export default defineComponent({
   setup() {

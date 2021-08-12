@@ -22,7 +22,7 @@ import { defineComponent, ref, watch } from 'vue'
 import SideBar from '@/components/SideBar.vue'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
-import { sideBarData, blogItemData } from '@/hooks/fakeDatas'
+import { sideBarData, blogItemData } from '@/utils/TakeDatas'
 import router from '@/router'
 
 export default defineComponent({

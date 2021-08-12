@@ -29,10 +29,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { BlogItemData } from '@/hooks/Types'
+import BlogItemData from '@/models/BlogItemData'
 import store from '@/store'
 import router from '@/router'
-import { getMarkdownData } from '@/hooks/tools'
+import { getMarkdownData } from '@/utils/Tools'
 import Loading from '@/components/Loading.vue'
 
 export default defineComponent({

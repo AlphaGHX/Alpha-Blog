@@ -1,4 +1,6 @@
-import { SideBarData, SideBarTocData, BlogItemData } from './Types'
+import SideBarData from '@/models/SideBarData'
+import SideBarTocData from '@/models/SideBarTocData'
+import BlogItemData from '@/models/BlogItemData'
 
 export const sideBarData: SideBarData = {
   topImgSrc: 'https://via.placeholder.com/70x70',

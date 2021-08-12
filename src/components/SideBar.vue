@@ -71,8 +71,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
-import { SideBarData } from '@/hooks/Types'
-import { pageTo } from '@/hooks/tools'
+import SideBarData from '@/models/SideBarData'
+import { pageTo } from '@/utils/Tools'
 
 export default defineComponent({
   name: 'SideBar',

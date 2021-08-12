@@ -1,9 +1,8 @@
-import router from '@/router'
 import store from '@/store'
 import axios from 'axios'
 import hljs from 'highlight.js'
 import markdownIt from 'markdown-it'
-import { SideBarTocData } from './Types'
+import SideBarTocData from '@/models/SideBarTocData'
 
 export const getSideBarTocData = function(
   data: { content: string; level: number }[]
