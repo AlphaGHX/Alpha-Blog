@@ -12,6 +12,10 @@
           <svg-icon :name="item"></svg-icon>
         </div>
       </div>
+      <div class="search">
+        <input class="search-input" type="text" placeholder="搜索" />
+        <div class="search-button"><svg-icon name="search"></svg-icon></div>
+      </div>
       <div class="content">
         <template v-for="(item, index) of contents" :key="index">
           <div class="content-item" @click="itemClick(index)">
@@ -73,8 +77,10 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import SideBarData from '@/models/SideBarData'
 import { pageTo } from '@/utils/Tools'
+import SvgIcon from './SvgIcon.vue'
 
 export default defineComponent({
+  components: { SvgIcon },
   name: 'SideBar',
   props: {
     data: Object
@@ -196,6 +202,34 @@ export default defineComponent({
         text-align: center;
         width: 100%;
         @include btn();
+        svg {
+          height: 40px;
+          color: $TextColor;
+        }
+      }
+    }
+    .search {
+      @include btn();
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      .search-input {
+        &::placeholder {
+          color: $TextColor;
+        }
+        line-height: 40px;
+        width: 80%;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        font-weight: bold;
+        text-indent: 10px;
+        color: $TextColor;
+        background-color: #0000;
+      }
+      .search-button {
+        text-align: center;
+        flex-grow: 1;
         svg {
           height: 40px;
           color: $TextColor;

@@ -15,7 +15,7 @@
             </div>
           </transition>
           <template v-for="(item, index) of tag" :key="index">
-            <div class="main-content-tag-item" @click.stop="">
+            <div class="main-content-tag-item" @click.stop="Search">
               <div>{{ item.tagName }}</div>
               <svg-icon :name="item.icon"></svg-icon>
             </div>
@@ -34,6 +34,7 @@ import store from '@/store'
 import router from '@/router'
 import { getMarkdownData } from '@/utils/Tools'
 import Loading from '@/components/Loading.vue'
+import Search from '@/service/Search'
 
 export default defineComponent({
   name: 'BlogItem',
@@ -67,6 +68,7 @@ export default defineComponent({
       text,
       tag,
       blogItemClick,
+      Search,
       isLoading
     }
   },
