@@ -16,20 +16,23 @@
         </div>
       </div>
       <div class="box-content">
-        <MarkDown />
+        <MarkDown :raw="markdownData" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import MarkDown from '@/components/MarkDown.vue'
+import { getMarkdownData } from '@/utils/Tools'
+import BlogItemDataType from '@/models/BlogItemData'
 
 export default defineComponent({
   name: 'BlogContent',
   props: {
-    data: Object
+    data: Object,
+    markdownData: String
   },
   components: {
     MarkDown

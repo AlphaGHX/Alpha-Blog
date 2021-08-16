@@ -136,7 +136,7 @@ export const sideBarData: SideBarData = {
 //   return res
 // }
 
-export const blogItemData: BlogItemData[] = [
+export const blogItemDataFake: BlogItemData[] = [
   {
     imgSrc:
       'https://ultramunch.com/wp-content/uploads/2020/06/How-Strong-is-Your-Loli-Detection-Skills-Quiz.jpg',

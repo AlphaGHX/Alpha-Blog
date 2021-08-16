@@ -63,6 +63,8 @@ export const getSideBarTocData = function(
 }
 
 export const getMarkdownData = function(contentSrc: string) {
+  let tocData: any
+
   const markdown = markdownIt({
     highlight: function(str, lang) {
       if (lang) {
@@ -80,14 +82,19 @@ export const getMarkdownData = function(contentSrc: string) {
     .use(require('markdown-it-sub'))
     .use(require('markdown-it-toc-and-anchor').default, {
       tocCallback: function(tocMarkdown: any, tocArray: any, tocHtml: any) {
-        store.commit('setTocData', getSideBarTocData(tocArray))
+        tocData = tocArray
       },
       anchorLinkSymbol: '#'
     })
 
-  return axios.get(contentSrc).then((res) => {
-    return markdown.render(res.data)
-  })
+  return axios
+    .get(contentSrc)
+    .then((res) => {
+      return {
+        markdownData: markdown.render(res.data),
+        tocData: tocData
+      }
+    })
 }
 
 export const pageTo = function(now: number, end: number): void {

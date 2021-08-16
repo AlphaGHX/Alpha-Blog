@@ -4,13 +4,24 @@
       <div class="main-left">
         <transition name="fade" mode="out-in">
           <SideBar class="side-bar" v-if="leftSW" :data="sideBarData" />
-          <SideBar class="side-bar-toc" v-else :data="$store.state.tocData" />
+          <SideBar class="side-bar-toc" v-else :data="tocData" />
         </transition>
       </div>
       <div class="main-right">
         <transition name="fade" mode="out-in">
-          <BlogItemList class="blog-item-list" v-if="rightSW" :data="blogItemData" />
-          <BlogContent class="blog-content" v-else :data="blogItemData[$store.state.nowPage]" />
+          <BlogItemList
+            class="blog-item-list"
+            v-if="rightSW"
+            :data="blogItemData"
+            @update-list="updateList"
+            @update-content="updateContent"
+          />
+          <BlogContent
+            class="blog-content"
+            v-else
+            :data="contentData"
+            :markdownData="markdownData"
+          />
         </transition>
       </div>
     </div>
@@ -18,11 +29,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
-import SideBar from '@/components/SideBar.vue'
+import { defineComponent, reactive, ref, watch } from 'vue'
+import { sideBarData, blogItemDataFake } from '@/utils/FakeDatas'
+import { getMarkdownData, getSideBarTocData } from '@/utils/Tools'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
-import { sideBarData, blogItemData } from '@/utils/FakeDatas'
+import BlogItemData from '@/models/BlogItemData'
+import SideBar from '@/components/SideBar.vue'
 import router from '@/router'
 
 export default defineComponent({
@@ -30,8 +43,13 @@ export default defineComponent({
   setup() {
     const leftSW = ref(true)
     const rightSW = ref(true)
+    const contentData = ref({})
+    const markdownData = ref('')
+    const blogItemData = reactive(blogItemDataFake)
+    const tocData = ref({})
 
     watch(router.currentRoute, (value) => {
+      console.log(value.params.name)
       if (value.params.name === 'list') {
         leftSW.value = true
         rightSW.value = true
@@ -41,9 +59,34 @@ export default defineComponent({
       }
     })
 
+    function updateList(b: BlogItemData[]) {
+      blogItemData.length = 0
+      b.forEach(function(_, index) {
+        blogItemData[index] = b[index]
+      })
+    }
+
+    function updateContent(i: number) {
+      contentData.value = blogItemData[i]
+      getMarkdownData(blogItemData[i].contentSrc)
+        .then((value) => {
+          markdownData.value = value.markdownData as string
+          tocData.value = getSideBarTocData(value.tocData)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      router.push({ path: `/blog/${blogItemData[i].title}` })
+    }
+
     return {
+      updateList,
+      updateContent,
+      contentData,
+      markdownData,
       sideBarData,
       blogItemData,
+      tocData,
       leftSW,
       rightSW
     }

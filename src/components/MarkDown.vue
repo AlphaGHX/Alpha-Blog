@@ -1,6 +1,6 @@
 <template>
   <div class="markdown-main">
-    <div class="markdown-body" v-html="$store.state.markdownData"></div>
+    <div class="markdown-body" v-html="raw"></div>
   </div>
 </template>
 
@@ -8,15 +8,11 @@
 import { defineComponent } from 'vue'
 import 'highlight.js/styles/xcode.css'
 import '@/style/githubMarkdown.scss'
-import store from '@/store'
 
 export default defineComponent({
   name: 'MarkDown',
-  setup() {
-    const markdownOut = store.state.markdownData
-    return {
-      markdownOut
-    }
+  props: {
+    raw: String
   }
 })
 </script>
