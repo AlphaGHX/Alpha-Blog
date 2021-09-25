@@ -23,10 +23,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent } from 'vue'
 import MarkDown from '@/components/MarkDown.vue'
-import { getMarkdownData } from '@/utils/Tools'
-import BlogItemDataType from '@/models/BlogItemData'
 
 export default defineComponent({
   name: 'BlogContent',

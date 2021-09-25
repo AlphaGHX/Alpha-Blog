@@ -176,8 +176,19 @@ export default defineComponent({
     padding-left: 30px;
     padding-right: 30px;
     max-height: 80vh;
-    overflow-y: auto;
+    overflow-y: overlay;
     @include pinkBG;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px $TextColor;
+      border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: $TextColor;
+    }
     .myInfo {
       margin-top: 30px;
       display: flex;
