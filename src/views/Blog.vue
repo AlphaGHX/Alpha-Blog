@@ -2,7 +2,7 @@
   <div class="main">
     <div class="box">
       <div class="main-left">
-        <transition name="fade" mode="out-in">
+        <transition name="fade" mode="out-in" @before-enter="goTop">
           <SideBar class="side-bar" v-if="leftSW" :data="sideBarData" />
           <SideBar class="side-bar-toc" v-else :data="tocData" />
         </transition>
@@ -49,7 +49,6 @@ export default defineComponent({
     const tocData = ref({})
 
     watch(router.currentRoute, (value) => {
-      console.log(value.params.name)
       if (value.params.name === 'list') {
         leftSW.value = true
         rightSW.value = true
@@ -72,16 +71,22 @@ export default defineComponent({
         .then((value) => {
           markdownData.value = value.markdownData as string
           tocData.value = getSideBarTocData(value.tocData)
+        }).then(() => {
+          router.push({ path: `/blog/${blogItemData[i].title}` })
         })
         .catch((error) => {
           console.error(error)
         })
-      router.push({ path: `/blog/${blogItemData[i].title}` })
+    }
+
+    function goTop() {
+      window.scrollTo(0, 0)
     }
 
     return {
       updateList,
       updateContent,
+      goTop,
       contentData,
       markdownData,
       sideBarData,

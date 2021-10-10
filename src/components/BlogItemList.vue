@@ -10,7 +10,7 @@
           <div class="main-content-text">{{ item.text }}</div>
           <div class="main-content-tag">
             <transition name="fade">
-              <div class="main-content-tag-item" v-if="isLoading">
+              <div class="main-content-tag-item" v-if="index === isLoading">
                 <div>载入...</div>
                 <Loading class="main-content-tag-item" />
               </div>
@@ -45,12 +45,13 @@ export default defineComponent({
     data: Object
   },
   setup(props, { emit }) {
-    const datas: BlogItemData = props.data as BlogItemData
+    const datas: BlogItemData[] = props.data as BlogItemData[]
 
-    const isLoading = ref(false)
+    const isLoading = ref(-1)
 
     function blogItemClick(index: number) {
       emit('update-content', index)
+      isLoading.value = index
     }
 
     function search(value: string) {

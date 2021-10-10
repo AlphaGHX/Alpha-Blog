@@ -55,6 +55,13 @@ export default defineComponent({
   font-family: system-ui;
   margin: 0px;
   padding: 0px;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2.5px;
+    background-color: $sideBarColor;
+  }
 }
 @mixin topBtn($bgc1, $bgc2, $sc) {
   width: 100%;
