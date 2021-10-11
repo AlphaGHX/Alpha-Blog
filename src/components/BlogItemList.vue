@@ -11,7 +11,6 @@
           <div class="main-content-tag">
             <transition name="fade">
               <div class="main-content-tag-item" v-if="index === isLoading">
-                <div>载入...</div>
                 <Loading class="main-content-tag-item" />
               </div>
             </transition>
