@@ -2,7 +2,7 @@
   <div class="main">
     <div class="box">
       <div class="main-left">
-        <transition name="fade" mode="out-in" @before-enter="goTop">
+        <transition name="fade" mode="out-in">
           <SideBar class="side-bar" v-if="leftSW" :data="sideBarData" />
           <SideBar class="side-bar-toc" v-else :data="tocData" />
         </transition>
@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, watch } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import { sideBarData, blogItemDataFake } from '@/utils/FakeDatas'
 import { getMarkdownData, getSideBarTocData } from '@/utils/Tools'
 import BlogItemList from '@/components/BlogItemList.vue'
@@ -37,6 +37,7 @@ import BlogContent from '@/components/BlogContent.vue'
 import BlogItemData from '@/models/BlogItemData'
 import SideBar from '@/components/SideBar.vue'
 import router from '@/router'
+import { onBeforeRouteUpdate } from 'vue-router'
 
 export default defineComponent({
   name: 'Blog',
@@ -48,8 +49,8 @@ export default defineComponent({
     const blogItemData = reactive(blogItemDataFake)
     const tocData = ref({})
 
-    watch(router.currentRoute, (value) => {
-      if (value.params.name === 'list') {
+    onBeforeRouteUpdate((to) => {
+      if (to.params.name === 'list') {
         leftSW.value = true
         rightSW.value = true
       } else {
@@ -71,7 +72,8 @@ export default defineComponent({
         .then((value) => {
           markdownData.value = value.markdownData as string
           tocData.value = getSideBarTocData(value.tocData)
-        }).then(() => {
+        })
+        .then(() => {
           router.push({ path: `/blog/${blogItemData[i].title}` })
         })
         .catch((error) => {
