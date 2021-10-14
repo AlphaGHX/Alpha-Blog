@@ -25,17 +25,19 @@
         </transition>
       </div>
     </div>
+    <TreeList :data="treeListData"></TreeList>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { sideBarData, blogItemDataFake } from '@/utils/FakeDatas'
+import { sideBarData, blogItemDataFake, treeListData } from '@/utils/FakeDatas'
 import { getMarkdownData, getSideBarTocData } from '@/utils/Tools'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
 import BlogItemData from '@/models/BlogItemData'
 import SideBar from '@/components/SideBar.vue'
+import TreeList from '@/components/TreeList.vue'
 import router from '@/router'
 import { onBeforeRouteUpdate } from 'vue-router'
 
@@ -71,6 +73,7 @@ export default defineComponent({
       getMarkdownData(blogItemData[i].contentSrc)
         .then((value) => {
           markdownData.value = value.markdownData as string
+          console.log(value.tocData)
           tocData.value = getSideBarTocData(value.tocData)
         })
         .then(() => {
@@ -81,27 +84,24 @@ export default defineComponent({
         })
     }
 
-    function goTop() {
-      window.scrollTo(0, 0)
-    }
-
     return {
       updateList,
       updateContent,
-      goTop,
       contentData,
       markdownData,
       sideBarData,
       blogItemData,
       tocData,
       leftSW,
-      rightSW
+      rightSW,
+      treeListData
     }
   },
   components: {
     SideBar,
     BlogItemList,
-    BlogContent
+    BlogContent,
+    TreeList
   }
 })
 </script>

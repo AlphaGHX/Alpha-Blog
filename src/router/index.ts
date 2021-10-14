@@ -28,10 +28,12 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  scrollBehavior() {
+  scrollBehavior(to) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({ left: 0, top: 0 })
+        if (to.hash === '') {
+          resolve({ left: 0, top: 0 })
+        }
       }, 500)
     })
   }

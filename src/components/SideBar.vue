@@ -8,7 +8,7 @@
         <div class="name" v-if="name">{{ name }}</div>
       </div>
       <div class="contact" v-if="contacts">
-        <div class="contact-img" v-for="(item, index) of contacts" :key="index">
+        <div class="contact-img" @click="toUrl(item)" v-for="(item, index) of contacts" :key="index">
           <svg-icon :name="item"></svg-icon>
         </div>
       </div>
@@ -159,12 +159,25 @@ export default defineComponent({
       }
     }
 
+    function toUrl(id: string) {
+      let url: string
+      if (id === 'github') {
+        url = 'https://github.com/AlphaGHX'
+      } else if (id === 'telegram') {
+        url = 'https://t.me/Alpha_TL'
+      } else {
+        url = 'https://twitter.com/AlphaT37888156'
+      }
+      window.open(url, '_blank')
+    }
+
     return {
       topImgSrc,
       name,
       contacts,
       contents,
-      itemClick
+      itemClick,
+      toUrl
     }
   }
 })

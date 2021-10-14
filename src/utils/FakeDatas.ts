@@ -1,5 +1,4 @@
 import SideBarData from '@/models/SideBarData'
-import SideBarTocData from '@/models/SideBarTocData'
 import BlogItemData from '@/models/BlogItemData'
 
 export const sideBarData: SideBarData = {
@@ -164,8 +163,7 @@ export const blogItemDataFake: BlogItemData[] = [
     ]
   },
   {
-    imgSrc:
-      'https://wallpapercave.com/wp/wp4747936.png',
+    imgSrc: 'https://wallpapercave.com/wp/wp4747936.png',
     title: '甲骨文云VPS白嫖',
     text: '甲骨文云50M对等上下行2核1G的VPS免费嫖两台',
     contentSrc:
@@ -212,6 +210,46 @@ export const blogItemDataFake: BlogItemData[] = [
       {
         tagName: '90',
         icon: 'md-heart'
+      }
+    ]
+  }
+]
+
+export const treeListData = [
+  {
+    text: '1',
+    hideItem: [
+      {
+        text: '2',
+        hideItem: [
+          {
+            text: '3'
+          }
+        ]
+      },
+      {
+        text: '2'
+      }
+    ]
+  },
+  {
+    text: '1',
+    hideItem: [
+      {
+        text: '2',
+        hideItem: [
+          {
+            text: '3'
+          }
+        ]
+      },
+      {
+        text: '2',
+        hideItem: [
+          {
+            text: '3'
+          }
+        ]
       }
     ]
   }
