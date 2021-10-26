@@ -1,8 +1,14 @@
 <template>
   <div>
     <div v-for="(item, index) of data" :key="index">
-      <div>{{ item.text }}</div>
-      <TreeList v-if="item.hideItem" :data="item.hideItem" style="padding-left: 10px;"></TreeList>
+      <slot :item="item" :index="index"></slot>
+      <TreeList
+        v-if="item.hideItem"
+        :data="item.hideItem"
+        :rank="rank + 1"
+        style="padding-left: 10px;"
+      >
+      </TreeList>
     </div>
   </div>
 </template>
@@ -12,11 +18,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'TreeList',
   props: {
-    data: Object
+    data: Object,
+    rank: Number
   }
 })
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

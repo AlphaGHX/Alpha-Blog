@@ -25,7 +25,9 @@
         </transition>
       </div>
     </div>
-    <TreeList :data="treeListData"></TreeList>
+    <TreeList :data="treeListData" :rank="1" v-slot="slotProps">
+      <div>{{ slotProps.item.text }}</div>
+    </TreeList>
   </div>
 </template>
 
