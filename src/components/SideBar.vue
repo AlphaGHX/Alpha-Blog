@@ -17,57 +17,7 @@
         <div class="search-button"><svg-icon name="search"></svg-icon></div>
       </div>
       <div class="content">
-        <template v-for="(item, index) of contents" :key="index">
-          <div class="content-item" @click="itemClick(index)">
-            <svg-icon v-if="topImgSrc" :name="item.icon || 'star'"></svg-icon>
-            <div class="content-item-title">{{ item.title }}</div>
-            <svg-icon
-              v-if="item.hideItem.length"
-              :class="{ 'svg-active': item.isActive }"
-              name="arrow"
-            ></svg-icon>
-          </div>
-          <template v-if="item.hideItem.length">
-            <template v-for="(itemH, indexH) of item.hideItem" :key="indexH">
-              <div
-                class="content-item"
-                @click="itemClick(index, indexH)"
-                :class="{ 'content-hideItem': !item.isActive }"
-                style="padding-left: 10px"
-              >
-                <svg-icon
-                  v-if="topImgSrc"
-                  :name="itemH.icon || 'star'"
-                ></svg-icon>
-                <div class="content-item-title">{{ itemH.title }}</div>
-                <svg-icon
-                  v-if="itemH.hideItem.length"
-                  :class="{ 'svg-active': itemH.isActive }"
-                  name="arrow"
-                ></svg-icon>
-              </div>
-              <template v-if="itemH.hideItem.length">
-                <template
-                  v-for="(itemHH, indexHH) of itemH.hideItem"
-                  :key="indexHH"
-                >
-                  <div
-                    class="content-item"
-                    @click="itemClick(index, indexH, indexHH)"
-                    :class="{ 'content-hideItem': !itemH.isActive }"
-                    style="padding-left: 20px"
-                  >
-                    <svg-icon
-                      v-if="topImgSrc"
-                      :name="itemHH.icon || 'star'"
-                    ></svg-icon>
-                    <div class="content-item-title">{{ itemHH.title }}</div>
-                  </div>
-                </template>
-              </template>
-            </template>
-          </template>
-        </template>
+        <TreeList :data="contents" :rank="1"></TreeList>
       </div>
     </div>
   </div>
@@ -76,11 +26,12 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import SideBarData from '@/models/SideBarData'
+import TreeList from '@/components/TreeList.vue'
 import { pageTo } from '@/utils/Tools'
 import SvgIcon from './SvgIcon.vue'
 
 export default defineComponent({
-  components: { SvgIcon },
+  components: { SvgIcon, TreeList },
   name: 'SideBar',
   props: {
     data: Object
