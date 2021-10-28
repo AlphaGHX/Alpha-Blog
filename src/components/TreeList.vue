@@ -10,9 +10,8 @@
       ></svg-icon>
     </div>
     <div
+      :style="activeStyle[index]"
       class="content-hideItem"
-      :class="{ 'content-showItem': !isActive[index] }"
-      style="padding-left: 10px;"
     >
       <TreeList
         v-if="item.hideItem"
@@ -28,7 +27,6 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import SvgIcon from './SvgIcon.vue'
-import $ from 'jquery'
 export default defineComponent({
   components: { SvgIcon },
   name: 'TreeList',
@@ -38,18 +36,22 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const isActive = ref([false])
-    const activeStyle = ref([{}])
+    const activeStyle = ref<any>([{}])
     const data = props.data as any
 
     function itemClick(index: number) {
-      $('.content-showItem').css(
-        'height',
-        data[index].hideItem.length * 40 + 'px'
-      )
-      $('.content-showItem').css('opacity', 1)
+      if (isActive.value[index]) {
+        activeStyle.value[index].height =
+          data[index].hideItem.length * 40 + 'px'
+        activeStyle.value[index].opacity = 1
+      } else {
+        activeStyle.value[index].height = '0px'
+        activeStyle.value[index].opacity = 0
+      }
       isActive.value[index] = !isActive.value[index]
     }
-    return { itemClick, isActive }
+
+    return { itemClick, isActive, activeStyle }
   }
 })
 </script>
@@ -83,7 +85,5 @@ export default defineComponent({
 }
 .content-hideItem {
   @include transition;
-  height: 0;
-  opacity: 0;
 }
 </style>
