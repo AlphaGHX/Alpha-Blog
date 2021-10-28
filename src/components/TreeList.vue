@@ -5,23 +5,30 @@
       <div class="content-item-title">{{ item.title }}</div>
       <svg-icon
         v-if="item.hideItem"
-        :class="{ 'svg-active': isActive }"
+        :class="{ 'svg-active': isActive[index] }"
         name="arrow"
       ></svg-icon>
     </div>
-    <TreeList
-      v-if="item.hideItem"
-      :data="item.hideItem"
-      :rank="rank + 1"
+    <div
+      class="content-hideItem"
+      :class="{ 'content-showItem': !isActive[index] }"
       style="padding-left: 10px;"
     >
-    </TreeList>
+      <TreeList
+        v-if="item.hideItem"
+        :data="item.hideItem"
+        :rank="rank + 1"
+        style="padding-left: 10px;"
+      >
+      </TreeList>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import SvgIcon from './SvgIcon.vue'
+import $ from 'jquery'
 export default defineComponent({
   components: { SvgIcon },
   name: 'TreeList',
@@ -30,10 +37,17 @@ export default defineComponent({
     rank: Number
   },
   setup(props, { emit }) {
-    const isActive = ref({})
+    const isActive = ref([false])
+    const activeStyle = ref([{}])
+    const data = props.data as any
 
-    function itemClick(item: number) {
-      console.log(item)
+    function itemClick(index: number) {
+      $('.content-showItem').css(
+        'height',
+        data[index].hideItem.length * 40 + 'px'
+      )
+      $('.content-showItem').css('opacity', 1)
+      isActive.value[index] = !isActive.value[index]
     }
     return { itemClick, isActive }
   }
@@ -68,7 +82,7 @@ export default defineComponent({
   }
 }
 .content-hideItem {
-  overflow: hidden;
+  @include transition;
   height: 0;
   opacity: 0;
 }

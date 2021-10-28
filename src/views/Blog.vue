@@ -3,7 +3,7 @@
     <div class="box">
       <div class="main-left">
         <transition name="fade" mode="out-in">
-          <SideBar class="side-bar" v-if="leftSW" :data="sideBarData" />
+          <SideBar class="side-bar" v-if="leftSW" :data="sideBarDataTest" />
           <SideBar class="side-bar-toc" v-else :data="tocData" />
         </transition>
       </div>
@@ -25,19 +25,17 @@
         </transition>
       </div>
     </div>
-    <TreeList :data="treeListData" :rank="1"></TreeList>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { sideBarData, blogItemDataFake, treeListData } from '@/utils/FakeDatas'
+import { sideBarData, blogItemDataFake, sideBarDataTest } from '@/utils/FakeDatas'
 import { getMarkdownData, getSideBarTocData } from '@/utils/Tools'
 import BlogItemList from '@/components/BlogItemList.vue'
 import BlogContent from '@/components/BlogContent.vue'
 import BlogItemData from '@/models/BlogItemData'
 import SideBar from '@/components/SideBar.vue'
-import TreeList from '@/components/TreeList.vue'
 import router from '@/router'
 import { onBeforeRouteUpdate } from 'vue-router'
 
@@ -90,18 +88,17 @@ export default defineComponent({
       contentData,
       markdownData,
       sideBarData,
+      sideBarDataTest,
       blogItemData,
       tocData,
       leftSW,
-      rightSW,
-      treeListData
+      rightSW
     }
   },
   components: {
     SideBar,
     BlogItemList,
-    BlogContent,
-    TreeList
+    BlogContent
   }
 })
 </script>
