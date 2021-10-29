@@ -1,7 +1,7 @@
 <template>
   <div v-for="(item, index) of data" :key="index">
     <div class="content-item" @click.stop="itemClick(index)">
-      <svg-icon v-if="item.topImgSrc" :name="item.icon || 'star'"></svg-icon>
+      <svg-icon :name="item.icon || 'star'"></svg-icon>
       <div class="content-item-title">{{ item.title }}</div>
       <svg-icon
         v-if="item.hideItem"
@@ -10,22 +10,18 @@
       ></svg-icon>
     </div>
     <div
+      v-if="item.hideItem"
       :style="activeStyle[index]"
       class="content-hideItem"
+      style="padding-left: 10px;"
     >
-      <TreeList
-        v-if="item.hideItem"
-        :data="item.hideItem"
-        :rank="rank + 1"
-        style="padding-left: 10px;"
-      >
-      </TreeList>
+      <TreeList :data="item.hideItem" :rank="rank + 1"> </TreeList>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import SvgIcon from './SvgIcon.vue'
 export default defineComponent({
   components: { SvgIcon },
@@ -36,13 +32,35 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const isActive = ref([false])
-    const activeStyle = ref<any>([{}])
-    const data = props.data as any
+    const activeStyle = ref<{ height: string; opacity: number }[]>([
+      { height: '0', opacity: 0 }
+    ])
+    const data = props.data as {
+      title: string
+      icon: string
+      isActive: boolean
+      hideItem: {
+        title: string
+        isActive: boolean
+        hideItem: {
+          title: string
+        }[]
+      }[]
+    }[]
+    const rank = props.rank as number
+
+    onMounted(() => {
+      data.forEach((_: unknown, index: number) => {
+        activeStyle.value.push({ height: '0', opacity: 0 })
+        activeStyle.value[index].height = '0px'
+        activeStyle.value[index].opacity = 0
+      })
+    })
 
     function itemClick(index: number) {
-      if (isActive.value[index]) {
+      if (!isActive.value[index]) {
         activeStyle.value[index].height =
-          data[index].hideItem.length * 40 + 'px'
+          data[index].hideItem?.length * 40 + 'px'
         activeStyle.value[index].opacity = 1
       } else {
         activeStyle.value[index].height = '0px'
@@ -51,7 +69,8 @@ export default defineComponent({
       isActive.value[index] = !isActive.value[index]
     }
 
-    return { itemClick, isActive, activeStyle }
+    // eslint-disable-next-line vue/no-dupe-keys
+    return { itemClick, isActive, activeStyle, data, rank }
   }
 })
 </script>
@@ -85,5 +104,6 @@ export default defineComponent({
 }
 .content-hideItem {
   @include transition;
+  overflow: hidden;
 }
 </style>
